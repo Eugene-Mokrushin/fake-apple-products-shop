@@ -1,0 +1,32 @@
+@import './variables';
+
+@function weight($weigh-name) {
+    @return map-get($map: $font-weights, $key: $weigh-name)
+}
+
+;
+
+.navWrapper {
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.mobile {
+    height: 63px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .logoBack {
+        font-weight: weight(bold);
+        text-decoration: none;
+        color: $almostBlack;
+        margin-left: 26px;
+        font-size: 25px;
+        line-height: 30px;
+    }
+}
+
+// .desctop {
+//     display: inline;
+// }
