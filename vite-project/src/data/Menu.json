@@ -1,0 +1,18 @@
+{
+    "chose_model": {
+        "en": "Select phone model",
+        "ru": "Выбрать модель телефона"
+    },
+    "fav": {
+        "en": "Favorites",
+        "ru": "Избранное"
+    },
+    "terms": {
+        "en": "Terms of service",
+        "ru": "Условия сервиса"
+    },
+    "contacts": {
+        "en": "Contacts",
+        "ru": "Контакты"
+    }
+}

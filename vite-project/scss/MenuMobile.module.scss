@@ -1,0 +1,11 @@
+@import './variables';
+
+@function weight($weigh-name) {
+    @return map-get($map: $font-weights, $key: $weigh-name)
+}
+
+;
+
+.menu {
+    clear: both;
+}
