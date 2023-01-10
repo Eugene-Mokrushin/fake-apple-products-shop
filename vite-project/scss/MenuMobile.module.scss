@@ -6,6 +6,19 @@
 
 ;
 
+.active {
+    left: unset;
+    right: 0;
+}
+
 .menu {
+    overflow-x: hidden;
+    position: absolute;
+    top: 0;
+    left: 100%;
     clear: both;
+    background: $bgGreyishWhite;
+    width: 100%;
+    height: 100%;
+
 }
