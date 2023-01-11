@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useMobile } from '../context/IsMobileLangContext'
 import { useSelectedSection } from '../context/IsSectionSelectedContext'
@@ -6,9 +6,11 @@ import { useShoppingCart } from '../context/ShoppingCartContext'
 import { MenuMobile } from './MenuMobile'
 import classes from '../../scss/Navbar.module.scss'
 
+
+
 export function Navbar() {
     const { cartQuantity } = useShoppingCart()
-    const { isMobile, lang } = useMobile()
+    const { isMobile, setMenuStatus } = useMobile()
     const { section, setSection } = useSelectedSection()
     return (
         <>
@@ -23,11 +25,11 @@ export function Navbar() {
                             {cartQuantity}
                         </div>
                     }
-                    {!isMobile && 
+                    {!isMobile &&
                         <div className='heartSvg'></div>
                     }
                 </div>
-                <div className={classes.burger}>
+                <div className={classes.burger} onClick={() => setMenuStatus(true)}>
                     <span className={classes.top}></span>
                     <span className={classes.middle}></span>
                     <span className={classes.bottom}></span>

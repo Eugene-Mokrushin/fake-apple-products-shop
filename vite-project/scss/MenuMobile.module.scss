@@ -7,18 +7,75 @@
 ;
 
 .active {
-    left: unset;
+    left: 30% !important;
+    transition: left .4s;
     right: 0;
 }
 
 .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border: 1px solid black;
     overflow-x: hidden;
     position: absolute;
     top: 0;
     left: 100%;
     clear: both;
     background: $bgGreyishWhite;
-    width: 100%;
-    height: 100%;
+    width: 70%;
+    max-height: 70%;
+    padding: 15px 23px 25px;
+    font-family: 'Montserrat', sans-serif;
 
+    border-bottom-left-radius: 20px;
+
+
+    h3 {
+        font-style: normal;
+        font-weight: weight(medium);
+        font-size: 15px;
+        line-height: 18px;
+        color: $almostBlack;
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .langChose {
+        display: flex;
+        align-items: center;
+
+        .active {
+            color: $orangeColor;
+        }
+
+        div {
+            margin-bottom: unset;
+            font-size: 15px;
+            line-height: 18px;
+            font-weight: weight(medium);
+        }
+    }
+
+    .models h3 {
+        position: relative;
+    }
+
+    .models h3::after {
+        position: absolute;
+        left: calc(100% + 5.5px);
+        top: -2px;
+    }
+
+    .models[data-active="true"] > h3::after {
+        content: url(../src/imgs/tickDown.svg);
+    }
+
+    .models[data-active="false"] > h3::after {
+        content: url(../src/imgs/tickUp.svg);
+    }
 }

@@ -1,11 +1,18 @@
-import { IsMobileLangProvider } from './context/IsMobileLangContext';
+import { IsMobileLangProvider, useMobile } from './context/IsMobileLangContext';
 import { IsSectionSelectedProvider } from './context/IsSectionSelectedContext';
 import { ShoppingCartProvider } from './context/ShoppingCartContext';
 import { Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Navbar } from './components/Navbar';
+import { useEffect } from 'react';
 
 function App() {
+  const { setMenuStatus } = useMobile()
+  useEffect(() => {
+    window.addEventListener('click', () => {
+      setMenuStatus(false)
+    })
+  }, [])
   return (
     <ShoppingCartProvider>
       <IsSectionSelectedProvider>
