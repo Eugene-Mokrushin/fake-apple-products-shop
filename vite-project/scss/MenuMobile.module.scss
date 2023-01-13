@@ -30,19 +30,18 @@
 
     border-bottom-left-radius: 20px;
 
-
-    h3 {
-        font-style: normal;
-        font-weight: weight(medium);
-        font-size: 15px;
-        line-height: 18px;
-        color: $almostBlack;
-    }
-
-    div {
+    .menuItem {
         display: flex;
         align-items: center;
         gap: 10px;
+
+        .menuItemTitle {
+            font-style: normal;
+            font-weight: weight(medium);
+            font-size: 15px;
+            line-height: 18px;
+            color: $almostBlack;
+        }
     }
 
     .langChose {
@@ -61,21 +60,76 @@
         }
     }
 
-    .models h3 {
+    h3 {
         position: relative;
     }
 
-    .models h3::after {
+    h3::after {
         position: absolute;
         left: calc(100% + 5.5px);
         top: -2px;
     }
 
-    .models[data-active="true"] > h3::after {
+    h3[data-active="true"]::after {
+        content: url(../src/imgs/tickUp.svg);
+    }
+
+    h3[data-active="false"]::after {
         content: url(../src/imgs/tickDown.svg);
     }
 
-    .models[data-active="false"] > h3::after {
-        content: url(../src/imgs/tickUp.svg);
+    .models {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: height .5s;
+        margin-top: -17px;
+
+        .model {
+            margin-top: 10px;
+            flex-direction: column;
+
+
+            .brandName {
+
+                position: relative;
+                margin-left: 42px;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 15px;
+                line-height: 18px;
+            }
+
+            .brandName::before {
+                position: absolute;
+                left: -14.5px;
+                top: -2px;
+            }
+
+            .brandName[data-brandActive="true"]::before {
+                content: url(../src/imgs/tickUp.svg);
+            }
+
+            .brandName[data-brandActive="false"]::before {
+                content: url(../src/imgs/tickDown.svg);
+            }
+
+            .modelName[data-brandActive="false"] {
+                display: none;
+            }
+        }
+
+    }
+
+    .models[data-active="true"] {
+        display: block;
+        height: fit-content;
+        max-height: 700px;
+    }
+
+    .models[data-active="false"] {
+        display: none;
+        height: 0px;
+        max-height: 0px;
     }
 }

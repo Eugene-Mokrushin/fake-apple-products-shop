@@ -1,0 +1,66 @@
+{
+    "Apple": [
+        "iPhone 12",
+        "iPhone 12 Max",
+        "iPhone 13",
+        "iPhone 13 Max",
+        "iPhone 13 Pro Max",
+        "iPhone 14"
+    ],
+    "Xiaomi": [
+        "Mi 11",
+        "Xiaomi 11 Lite",
+        "Xiaomi 11i",
+        "Redmi Note 11T",
+        "Xiaomi 11i Hypercharge",
+        "Xiaomi 11T Pro"
+    ],
+    "Samsung": [
+        "Galaxy S22",
+        "Galaxy S22 Ultra",
+        "Galaxy Z Flip3",
+        "Galaxy Z Fold4",
+        "Galaxy A53"
+    ],
+    "Realme": [
+        "Realme 9i",
+        "Realme 9",
+        "Realme 9 Pro",
+        "Realme 9 Pro+",
+        "Realme GT"
+    ],
+    "OPPO": [
+        "OPPO Find X5",
+        "OPPO Find X5 Pro",
+        "OPPO Reno8",
+        "OPPO Reno8 Pro",
+        "OPPO A77",
+        "OPPO A96"
+    ],
+    "Sony": [
+        "Sony Xperia 5 III",
+        "Sony Xperia 1 III",
+        "Sony Xperia 1 IV",
+        "Sony Xperia 5 IV"
+    ],
+    "Vivo": [
+        "Y02",
+        "V25",
+        "X80",
+        "X80 Pro"
+    ],
+    "Nokia": [
+        "C31",
+        "G60",
+        "X30",
+        "G400"
+    ],
+    "INOI": [
+        "INOI Note 12",
+        "INOI A62 Lite",
+        "INOI A22 Lite",
+        "INOI 7 4+",
+        "INOI A72",
+        "INOI A83"
+    ]
+}
