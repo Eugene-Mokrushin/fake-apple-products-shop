@@ -30,9 +30,18 @@
     }
 
     .back {
+        position: relative;
+        padding-left: 41px;
         font-size: 17px;
         line-height: 21px;
         color: $blueishBlack;
+
+        &::before {
+            left: 0px;
+            top: 2px;
+            position: absolute;
+            content: url(./imgs/tickLeft.svg);
+        }
     }
 
     .cart {
@@ -85,6 +94,19 @@
 
         .bottom {
             transform: translateY(14px);
+        }
+    }
+
+    .mnVisible {
+        .top {
+            transform: rotate(-45deg) translateX(-5px) translateY(10px);
+        }
+        
+        .middle {
+            opacity: 0;
+        }
+        .bottom  {
+            transform: rotate(45deg) translateX(10px) translateY(5px);
         }
     }
 }

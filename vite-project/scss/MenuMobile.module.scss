@@ -13,10 +13,11 @@
 }
 
 .menu {
+    transition: left .4s;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     gap: 18px;
-    border: 1px solid black;
     overflow-x: hidden;
     position: absolute;
     top: 0;
@@ -25,6 +26,7 @@
     background: $bgGreyishWhite;
     width: 70%;
     max-height: 70%;
+    margin-top: 62px;
     padding: 15px 23px 25px;
     font-family: 'Montserrat', sans-serif;
 
@@ -71,11 +73,11 @@
     }
 
     h3[data-active="true"]::after {
-        content: url(../src/imgs/tickUp.svg);
+        content: url(./imgs/tickUp.svg);
     }
 
     h3[data-active="false"]::after {
-        content: url(../src/imgs/tickDown.svg);
+        content: url(./imgs/tickDown.svg);
     }
 
     .models {
@@ -88,16 +90,32 @@
         .model {
             margin-top: 10px;
             flex-direction: column;
-
+            
+            .allModelBrand {
+                margin-left: 52px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+            }
 
             .brandName {
-
+                width: fit-content;
                 position: relative;
                 margin-left: 42px;
                 font-style: normal;
-                font-weight: 500;
+                font-weight: weight(medium);
                 font-size: 15px;
                 line-height: 18px;
+            }
+
+            .modelName {
+                font-weight: weight(medium);
+                font-size: 15px;
+            }
+
+            .pickedModelName {
+                color: $orangeColor;
             }
 
             .brandName::before {
@@ -106,17 +124,27 @@
                 top: -2px;
             }
 
-            .brandName[data-brandActive="true"]::before {
-                content: url(../src/imgs/tickUp.svg);
+            .brandName[data-brandactive="true"]::before {
+                content: url(./imgs/tickUp.svg);
             }
 
-            .brandName[data-brandActive="false"]::before {
-                content: url(../src/imgs/tickDown.svg);
+            .brandName[data-brandactive="false"]::before {
+                content: url(./imgs/tickDown.svg);
             }
 
-            .modelName[data-brandActive="false"] {
+            .modelName[data-brandactive="false"] {
                 display: none;
             }
+        }
+
+        .model[data-brandactive="false"] h4::before {
+            content: url(./imgs/tickDown.svg);
+        }
+        .model[data-brandactive="true"] h4::before {
+            content: url(./imgs/tickUp.svg);
+        }
+        .model[data-brandactive="false"] .allModelBrand {
+            display: none;
         }
 
     }

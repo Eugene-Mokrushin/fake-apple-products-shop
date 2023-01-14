@@ -1,0 +1,122 @@
+@import './variables';
+
+@function weight($weigh-name) {
+    @return map-get($map: $font-weights, $key: $weigh-name)
+}
+
+;
+
+
+.contactsWrapper {
+    font-family: 'Montserrat';
+    padding: 20px 25px 34px 25px;
+
+    .mapWrapper {
+        padding: 15px 15px 12px 15px;
+        background: white;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 30px;
+
+        .title {
+            font-weight: weight(semi-bold);
+            font-size: 17px;
+            color: $blueishBlack;
+        }
+
+        .map {
+            margin-top: 20px;
+            max-height: 177px;
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .specificAddr {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+
+            .text {
+                margin-left: 11px;
+                a {
+                    text-decoration: none;
+                }
+
+                .str {
+                    color: black;
+                    font-weight: weight(medium);
+                    font-style: normal;
+                    font-size: 15px;
+                    line-height: 18px;
+                }
+
+                .office {
+                    color: $greyColor;
+                    font-weight: weight(normal);
+                    font-style: normal;
+                    font-size: 13px;
+                    line-height: 16px;
+                }
+            }
+        }
+    }
+
+    .socialsWrapper {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        row-gap: 20px;
+        column-gap: 5px;
+        flex: 2;
+
+        .social {
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1/1;
+            height: 160px;
+            background: white;
+            // padding: 50px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+        }
+    }
+
+    .phoneNum {
+        margin-top: 27px;
+        display: flex;
+        justify-content: center;
+
+        .num {
+            margin-left: 10px;
+            font-style: normal;
+            font-weight: weight(semi-bold);
+            font-size: 20px;
+            line-height: 24px;
+            text-align: center;
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+    }
+
+    .backToMain {
+        display: grid;
+        align-content: center;
+        justify-content: center;
+        margin-top: 40px;
+        height: 65px;
+        color: white;
+        font-style: normal;
+        font-weight: weight(semi-bold);
+        font-size: 17px;
+        line-height: 21px;
+        background-color: $almostBlack;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+        border-radius: 15px;
+    }
+
+}

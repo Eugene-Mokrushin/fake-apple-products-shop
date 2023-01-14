@@ -1,0 +1,18 @@
+{
+    "our_office": {
+        "en": "Our office",
+        "ru": "Наш офис"
+    },
+    "addr": {
+        "en": "Rue de Rivoli, 75001 Paris",
+        "ru": "Улица Риволи, 75001 Париж"
+    },
+    "addr_add": {
+        "en": "3rd floor 35th office",
+        "ru": "3 этаж 35 кабинет"
+    },
+    "btn": {
+        "en": "Back to Main",
+        "ru": "На главную"
+    }
+}

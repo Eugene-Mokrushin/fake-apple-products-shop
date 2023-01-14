@@ -1,0 +1,22 @@
+{
+    "service_title": {
+        "en": "Terms of Service",
+        "ru": "Условия сервиса"
+    },
+    "delivery_title": {
+        "en": "Terms of Delivery",
+        "ru": "Условия доставки"
+    },
+    "return_title": {
+        "en": "Terms of return",
+        "ru": "Условия возврата"
+    },
+    "terms": {
+        "en": "Задача организации, в особенности же курс на социально-ориентированный национальный проект требует от нас системного анализа модели развития! Таким образом, постоянное информационно-техническое обеспечение нашей деятельности требует от нас анализа системы масштабного изменения ряда параметров! С другой стороны социально-экономическое развитие напрямую зависит от всесторонне сбалансированных нововведений?",
+        "ru": "The task of the organization, in particular the course towards a socially oriented national project, requires us to systematically analyze the development model! Thus, the constant information and technical support of our activities requires us to analyze the system of large-scale changes in a number of parameters! On the other hand, socio-economic development directly depends on comprehensively balanced innovations?"
+    },
+    "btn": {
+        "en": "Back to Main",
+        "ru": "На главную"
+    }
+}

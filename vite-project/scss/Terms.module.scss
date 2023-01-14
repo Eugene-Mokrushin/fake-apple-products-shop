@@ -1,0 +1,53 @@
+@import './variables';
+
+@function weight($weigh-name) {
+    @return map-get($map: $font-weights, $key: $weigh-name)
+}
+
+;
+
+.allTermsWrapper {
+    font-family: 'Montserrat';
+    padding: 16px 25px 20px 25px;
+
+    .termWrapper {
+        margin-bottom: 20px;
+        padding: 15px 15px 30px 15px;
+        background: white;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 30px;
+
+        .title {
+            font-style: normal;
+            font-weight: weight(semi-bold);
+            font-size: 17px;
+            line-height: 21px;
+            color: $blueishBlack;
+        }
+
+        .descr {
+            margin-top: 15px;
+            margin-left: 8px;
+            font-style: normal;
+            font-weight: weight(thin);
+            font-size: 17px;
+            line-height: 21px;
+        }
+    }
+
+    .backToMain {
+        display: grid;
+        align-content: center;
+        justify-content: center;
+        margin-top: 30px;
+        height: 65px;
+        color: white;
+        font-style: normal;
+        font-weight: weight(semi-bold);
+        font-size: 17px;
+        line-height: 21px;
+        background-color: $almostBlack;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+        border-radius: 15px;
+    }
+}

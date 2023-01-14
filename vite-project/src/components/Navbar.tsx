@@ -1,16 +1,13 @@
-import React, { Dispatch, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useMobile } from '../context/IsMobileLangContext'
+import { useMobileAndLang } from '../context/IsMobileLangContext'
 import { useSelectedSection } from '../context/IsSectionSelectedContext'
 import { useShoppingCart } from '../context/ShoppingCartContext'
 import { MenuMobile } from './MenuMobile'
 import classes from '../../scss/Navbar.module.scss'
 
-
-
 export function Navbar() {
     const { cartQuantity } = useShoppingCart()
-    const { isMobile, setMenuStatus } = useMobile()
+    const { isMobile, openMenu, closeMenu, isMenuOpen } = useMobileAndLang()
     const { section, setSection } = useSelectedSection()
     return (
         <>
@@ -29,7 +26,7 @@ export function Navbar() {
                         <div className='heartSvg'></div>
                     }
                 </div>
-                <div className={classes.burger} onClick={() => setMenuStatus(true)}>
+                <div className={`${classes.burger} ${isMenuOpen ? classes.mnVisible : classes.mnHidden}`} onClick={() => {!isMenuOpen ? openMenu() : closeMenu()}}>
                     <span className={classes.top}></span>
                     <span className={classes.middle}></span>
                     <span className={classes.bottom}></span>

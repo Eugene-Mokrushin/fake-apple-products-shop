@@ -1,31 +1,24 @@
-import { IsMobileLangProvider, useMobile } from './context/IsMobileLangContext';
-import { IsSectionSelectedProvider } from './context/IsSectionSelectedContext';
-import { ShoppingCartProvider } from './context/ShoppingCartContext';
+import { useMobileAndLang } from './context/IsMobileLangContext';
 import { Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Navbar } from './components/Navbar';
-import { useEffect } from 'react';
+import { Contacts } from './pages/Contacts';
+import { Terms } from './pages/Terms';
 
 function App() {
-  const { setMenuStatus } = useMobile()
-  useEffect(() => {
-    window.addEventListener('click', () => {
-      setMenuStatus(false)
-    })
-  }, [])
+  const { isMenuOpen, closeMenu } = useMobileAndLang()
   return (
-    <ShoppingCartProvider>
-      <IsSectionSelectedProvider>
-        <IsMobileLangProvider>
-          <Navbar />
-          <div className='conteiner'>
-            <Routes>
-              <Route path='/' element={<Home />} />
-            </Routes>
-          </div>
-        </IsMobileLangProvider>
-      </IsSectionSelectedProvider>
-    </ShoppingCartProvider>
+    <>
+      <Navbar />
+      {isMenuOpen && <div className="cover" onClick={() => closeMenu()}></div>}
+      <div className='conteiner'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/contacts' element={<Contacts />} />
+          <Route path='/terms' element={<Terms />} />
+        </Routes>
+      </div>
+    </>
   )
 }
 
