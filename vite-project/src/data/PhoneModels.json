@@ -25,14 +25,13 @@
         "Realme 9i",
         "Realme 9",
         "Realme 9 Pro",
-        "Realme 9 Pro+",
         "Realme GT"
     ],
     "OPPO": [
         "OPPO Find X5",
         "OPPO Find X5 Pro",
         "OPPO Reno8",
-        "OPPO Reno8 Pro",
+        "OPPO Reno8 Lite",
         "OPPO A77",
         "OPPO A96"
     ],
@@ -43,23 +42,19 @@
         "Sony Xperia 5 IV"
     ],
     "Vivo": [
-        "Y02",
-        "V25",
-        "X80",
-        "X80 Pro"
+        "Vivo Y02",
+        "Vivo V25",
+        "Vivo X80",
+        "Vivo X80 Pro"
     ],
     "Nokia": [
-        "C31",
-        "G60",
-        "X30",
-        "G400"
+        "Nokia C31",
+        "Nokia G60",
+        "Nokia X30",
+        "Nokia G400"
     ],
     "INOI": [
         "INOI Note 12",
-        "INOI A62 Lite",
-        "INOI A22 Lite",
-        "INOI 7 4+",
-        "INOI A72",
-        "INOI A83"
+        "INOI A62 Lite"
     ]
 }
