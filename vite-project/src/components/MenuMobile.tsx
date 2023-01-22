@@ -22,7 +22,7 @@ export function MenuMobile() {
   const contacts = menuNames.contacts[lang as keyof typeof menuNames.contacts]
 
   function handleSelectModel(modelName: string, brand: string): void {
-    navigate(`store?model=${modelName}$${brand}`);
+    navigate(`store?model=${modelName}&brand=${brand}`);
     setSection(modelName)
     closeMenu()
   }

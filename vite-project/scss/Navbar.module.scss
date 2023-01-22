@@ -8,7 +8,9 @@
 
 .navWrapper {
     font-family: 'Montserrat', sans-serif;
-
+    position: relative;
+    z-index: 99;
+    background-color: $bgGreyishWhite;
 }
 
 .mobile {

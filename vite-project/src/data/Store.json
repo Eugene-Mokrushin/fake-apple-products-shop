@@ -1,0 +1,24 @@
+{
+    "wiget": {
+        "en": "Accessories for",
+        "ru": "Аксессуары для"
+    },
+    "rubrics": {
+        "en": "Cases",
+        "ru": "Чехлы"
+    },
+    "subrubrics": {
+        "en": [
+            "Leather",
+            "Silicone",
+            "Transparent",
+            "With Cardholder"
+        ],
+        "ru": [
+            "Кожанные",
+            "Силиконовые",
+            "Прозрачные",
+            "С картхолдером"
+        ]
+    }
+}
