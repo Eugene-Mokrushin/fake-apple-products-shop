@@ -26,3 +26,16 @@ body {
     width: 100vw;
     height: 100vh;
 }
+
+.smooth-return {
+    transition: all .2s ease, opacity .5s ease-in-out !important;
+}
+
+.highlight {
+    filter: brightness(1)
+}
+
+.fading {
+    opacity: 0;
+    transition: opacity .5s ease-in-out !important;
+}
