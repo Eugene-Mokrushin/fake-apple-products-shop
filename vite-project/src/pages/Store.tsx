@@ -73,12 +73,18 @@ export function Store() {
             )
         })
         allCards.length % 2 === 0 ? allCards.pop() : allCards
+        // var el = document.querySelector('.card-carousel'),
+        //     elClone = el.cloneNode(true);
 
+        // el.parentNode.replaceChild(elClone, el);
+        
         setCards([])
         setCards(allCards)
+        // document.querySelector('.card-carousel')?.classList.add('fading')
         setTimeout(() => {
             useCardsScroll()
-        }, 200)
+            document.querySelector('.card-carousel')?.classList.remove('fading')
+        }, 10)
         // useCardsScroll()
     }, [chosenRubric, model])
 

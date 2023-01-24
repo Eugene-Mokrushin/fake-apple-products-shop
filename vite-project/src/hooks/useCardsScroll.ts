@@ -1,7 +1,5 @@
-import { useEffect } from 'react'
-
 export function useCardsScroll(): void {
-    const cardsContainer = document.querySelector(".card-carousel");
+    const cardsContainer = document.querySelector<HTMLInputElement>(".card-carousel");
     const cardsController = document.querySelector(".card-carousel + .card-controller")
 
     class DraggingEvent {
@@ -10,14 +8,13 @@ export function useCardsScroll(): void {
             this.target = target;
         }
 
-        event(callback: { (e1: any): (e2: any) => any; (arg0: MouseEvent | TouchEvent): any; }) {
-            let handler: Function
+        event(callback: { (e1: any): (e2: any | null) => any; (arg0: MouseEvent | TouchEvent): any; }) {
+            let handler: EventListener
 
             this.target?.addEventListener("mousedown", (e) => {
                 e.preventDefault()
 
                 handler = callback(e)
-                console.log(typeof handler)
                 window.addEventListener("mousemove", handler)
 
                 document.addEventListener("mouseleave", clearDraggingEvent)
@@ -29,7 +26,8 @@ export function useCardsScroll(): void {
                     window.removeEventListener("mouseup", clearDraggingEvent)
 
                     document.removeEventListener("mouseleave", clearDraggingEvent)
-
+                    {/* 
+                    // @ts-ignore */}
                     handler(null)
                 }
             })
@@ -46,17 +44,19 @@ export function useCardsScroll(): void {
                 function clearDraggingEvent() {
                     window.removeEventListener("touchmove", handler)
                     window.removeEventListener("touchend", clearDraggingEvent)
-
+                    {/* 
+                    // @ts-ignore */}
                     handler(null)
                 }
             })
         }
 
-        // Get the distance that the user has dragged
-        getDistance(callback) {
-            function distanceInit(e1) {
-                let startingX, startingY;
 
+
+        // Get the distance that the user has dragged
+        getDistance(callback: { (data: any): void; (arg0: { x: number; y: number; } | null): any; }) {
+            function distanceInit(e1: TouchEvent | MouseEvent) {
+                let startingX: number, startingY: number;
                 if ("touches" in e1) {
                     startingX = e1.touches[0].clientX
                     startingY = e1.touches[0].clientY
@@ -66,7 +66,7 @@ export function useCardsScroll(): void {
                 }
 
 
-                return function (e2) {
+                return function (e2: TouchEvent | MouseEvent) {
                     if (e2 === null) {
                         return callback(null)
                     } else {
@@ -92,36 +92,41 @@ export function useCardsScroll(): void {
 
 
     class CardCarousel extends DraggingEvent {
-        constructor(container, controller = undefined) {
+
+        container: HTMLInputElement
+        controllerElement: undefined | Element;
+        cards: NodeListOf<HTMLElement>;
+        centerIndex: number;
+        cardWidth: number;
+        xScale: {
+            [index: number]: HTMLElement;
+        };
+        constructor(container: HTMLInputElement, controller = undefined) {
             super(container)
 
             // DOM elements
             this.container = container
             this.controllerElement = controller
             this.cards = container.querySelectorAll(".card")
-
             // Carousel data
             this.centerIndex = (this.cards.length - 1) / 2;
-            this.cardWidth = this.cards[0].offsetWidth / this.container.offsetWidth * 100
+            this.cardWidth = (this.cards[0] as HTMLElement).offsetWidth / this.container.offsetWidth * 100
             this.xScale = {};
 
             // Resizing
             window.addEventListener("resize", this.updateCardWidth.bind(this))
 
             if (this.controllerElement) {
-                this.controllerElement.addEventListener("keydown", this.controller.bind(this))
+                (this.controllerElement as HTMLElement).addEventListener("keydown", this.controller.bind(this))
             }
-
-
             // Initializers
             this.build()
-
             // Bind dragging event
             super.getDistance(this.moveCards.bind(this))
         }
 
         updateCardWidth() {
-            this.cardWidth = this.cards[0].offsetWidth / this.container.offsetWidth * 100
+            this.cardWidth = (this.cards[0] as HTMLElement).offsetWidth / this.container.offsetWidth * 100
 
             this.build()
         }
@@ -147,8 +152,7 @@ export function useCardsScroll(): void {
             }
         }
 
-
-        controller(e) {
+        controller(e: { keyCode: number; }) {
             const temp = { ...this.xScale };
 
             if (e.keyCode === 39) {
@@ -172,10 +176,10 @@ export function useCardsScroll(): void {
             this.xScale = temp;
 
             for (let x in temp) {
-                const scale = this.calcScale(x),
-                    scale2 = this.calcScale2(x),
-                    leftPos = this.calcPos(x, scale2),
-                    zIndex = -Math.abs(x)
+                const scale = this.calcScale(+x),
+                    scale2 = this.calcScale2(+x),
+                    leftPos = this.calcPos(+x, scale2),
+                    zIndex = -Math.abs(+x)
 
                 this.updateCards(this.xScale[x], {
                     x: x,
@@ -186,7 +190,7 @@ export function useCardsScroll(): void {
             }
         }
 
-        calcPos(x, scale) {
+        calcPos(x: number, scale: number) {
             let formula;
 
             if (x < 0) {
@@ -205,7 +209,7 @@ export function useCardsScroll(): void {
             }
         }
 
-        updateCards(card, data) {
+        updateCards(card: HTMLElement, data: { x?: any; scale?: any; leftPos?: any; zIndex?: any; }) {
             if (data.x || data.x == 0) {
                 card.setAttribute("data-x", data.x)
             }
@@ -216,7 +220,7 @@ export function useCardsScroll(): void {
                 if (data.scale == 0) {
                     card.style.opacity = data.scale
                 } else {
-                    card.style.opacity = 1;
+                    card.style.opacity = "1";
                 }
             }
 
@@ -235,21 +239,18 @@ export function useCardsScroll(): void {
             }
         }
 
-        calcScale2(x) {
-            let formula;
-
+        calcScale2(x: number) {
+            let formula: number;
             if (x <= 0) {
                 formula = 1 - -1 / 5 * x
-
                 return formula
-            } else if (x > 0) {
+            } else {
                 formula = 1 - 1 / 5 * x
-
                 return formula
             }
         }
 
-        calcScale(x) {
+        calcScale(x: number) {
             const formula = 1 - 1 / 5 * Math.pow(x, 2)
 
             if (formula <= 0) {
@@ -259,8 +260,8 @@ export function useCardsScroll(): void {
             }
         }
 
-        checkOrdering(card, x, xDist) {
-            const original = parseInt(card.dataset.x)
+        checkOrdering(card: HTMLElement, x: number, xDist: number) {
+            const original = card.dataset.x ? parseInt(card.dataset.x) : 0
             const rounded = Math.round(xDist)
             let newX = x
 
@@ -287,7 +288,7 @@ export function useCardsScroll(): void {
             return newX;
         }
 
-        moveCards(data) {
+        moveCards(data: { x: number; } | null) {
             let xDist;
             if (data != null) {
                 this.container.classList.remove("smooth-return")
@@ -301,13 +302,14 @@ export function useCardsScroll(): void {
                 for (let x in this.xScale) {
                     this.updateCards(this.xScale[x], {
                         x: x,
-                        zIndex: Math.abs(Math.abs(x) - this.centerIndex)
+                        zIndex: Math.abs(Math.abs(+x) - this.centerIndex)
                     })
                 }
             }
 
             for (let i = 0; i < this.cards.length; i++) {
-                const x = this.checkOrdering(this.cards[i], parseInt(this.cards[i].dataset.x), xDist),
+                if (!this.cards[i].dataset.x === undefined) return
+                const x = this.checkOrdering(this.cards[i], parseInt(this.cards[i].dataset.x!), xDist),
                     scale = this.calcScale(x + xDist),
                     scale2 = this.calcScale2(x + xDist),
                     leftPos = this.calcPos(x + xDist, scale2)
@@ -321,5 +323,6 @@ export function useCardsScroll(): void {
         }
     }
 
-    const carousel = new CardCarousel(cardsContainer)
+
+    const carousel = cardsContainer ? new CardCarousel(cardsContainer) : null
 }
