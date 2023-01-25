@@ -20,6 +20,9 @@
     justify-content: space-between;
 
     .logoBack {
+        display: grid;
+        height: 100%;
+        align-content: center;
         font-weight: weight(bold);
         text-decoration: none;
         color: $almostBlack;
@@ -32,6 +35,9 @@
     }
 
     .back {
+        display: grid;
+        height: 100%;
+        align-content: center;
         position: relative;
         padding-left: 41px;
         font-size: 17px;
@@ -39,6 +45,9 @@
         color: $blueishBlack;
 
         &::before {
+            display: grid;
+            height: 100%;
+            align-content: center;
             left: 0px;
             top: 2px;
             position: absolute;
@@ -46,25 +55,60 @@
         }
     }
 
-    .cart {
-        position: relative;
-        margin-left: auto;
-        margin-right: 54px;
+    .wrapMenuAndCarts {
+        display: flex;
     }
 
-    .quantityInCart {
-        position: absolute;
-        top: 0;
-        left: 70%;
+    .cart {
+        position: relative;
+        width: 50px;
+        display: flex;
+        justify-content: center;
+        // margin-left: auto;
+        margin-right: 24px;
+        margin-bottom: 7px;
 
-        background-color: $orangeColor;
-        border-radius: 50%;
-        height: 15px;
-        width: 15px;
-        color: white;
-        font-size: 13px;
-        line-height: 16px;
-        text-align: center;
+        .quantityInCart {
+            position: absolute;
+            top: 0;
+            left: 70%;
+
+            background-color: $orangeColor;
+            border-radius: 50%;
+            height: 15px;
+            width: 15px;
+            color: white;
+            font-size: 13px;
+            line-height: 16px;
+            text-align: center;
+        }
+    }
+
+    .favAndQuantity {
+        position: relative;
+        margin-left: auto;
+        width: 50px;
+        margin-top: 4px;
+        display: flex;
+        justify-content: center;
+
+        .numFav {
+            aspect-ratio: 1/1;
+            // padding-left: 3px;
+            // padding-right: 3px;
+            position: absolute;
+            top: -7px;
+            left: 55%;
+
+            background-color: $orangeColor;
+            border-radius: 50%;
+            height: 16px;
+            width: 16px;
+            color: white;
+            font-size: 13px;
+            line-height: 16px;
+            text-align: center;
+        }
     }
 
     .burger {
@@ -74,7 +118,7 @@
         margin-right: 24px;
         transition: all .25s;
         position: relative;
-        margin-top: 2px;
+        margin-top: 6px;
 
 
         .top,
@@ -103,11 +147,12 @@
         .top {
             transform: rotate(-45deg) translateX(-5px) translateY(10px);
         }
-        
+
         .middle {
             opacity: 0;
         }
-        .bottom  {
+
+        .bottom {
             transform: rotate(45deg) translateX(10px) translateY(5px);
         }
     }

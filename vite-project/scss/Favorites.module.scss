@@ -1,0 +1,120 @@
+@import './variables';
+
+@function weight($weigh-name) {
+    @return map-get($map: $font-weights, $key: $weigh-name)
+}
+
+;
+
+.favWrapper {
+    width: 90%;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+
+    .cardsWrapper {
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        row-gap: 20px;
+        column-gap: 20px;
+
+        .card {
+            position: relative;
+            background: #FFFFFF;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            max-height: 410px;
+            max-width: 380px;
+            width: 330px;
+            height: 460px;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            transition: inherit;
+
+            .favIco {
+                z-index: 10;
+                transform: scale(1.3);
+                position: absolute;
+                left: 86%;
+                top: 5%;
+                background-color: #FFFFFF;
+                padding: 5px;
+                border-bottom-left-radius: 50%;
+            }
+
+            .allImagesWrapper {
+                display: flex;
+                overflow: hidden;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                border-radius: 30px;
+
+                .imgPreview {
+                    scroll-snap-align: center;
+                    max-width: 101%;
+                    min-width: 101%;
+                    aspect-ratio: 1/1;
+                    object-fit: contain;
+                    // border-radius: 30px;
+                }
+
+                .dots {
+                    position: absolute;
+                    display: flex;
+                    z-index: 4;
+
+                    left: 50%;
+                    top: 80%;
+                    transform: translateX(-50%) translateY(-100%);
+
+                    .dot {
+                        border-radius: 100%;
+                        height: 5px;
+                        margin-left: 2px;
+                        width: 5px;
+                        background-color: $greyColor;
+                    }
+                    .highlighted {
+                        background-color: $orangeColor;
+                        transform: scale(1.3);
+                    }
+                }
+            }
+
+
+            .titleAndPrice {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+
+                .title {
+                    font-style: normal;
+                    font-weight: weight(semi-bold);
+                    font-size: 17px;
+                    line-height: 21px;
+                    width: 50%;
+                    color: $blueishBlack;
+                    text-overflow: ellipsis;
+                }
+
+                .price {
+                    display: grid;
+                    align-content: center;
+                    justify-content: center;
+                    font-style: normal;
+                    font-weight: weight(semi-bold);
+                    font-size: 17px;
+                    line-height: 21px;
+                    text-align: right;
+                    color: $orangeColor;
+                }
+            }
+
+        }
+    }
+
+
+}

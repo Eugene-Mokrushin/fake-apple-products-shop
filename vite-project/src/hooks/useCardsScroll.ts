@@ -1,7 +1,9 @@
+
 export function useCardsScroll(): void {
+    // const { isMobile } = useMobileAndLang()
     const cardsContainer = document.querySelector<HTMLInputElement>(".card-carousel");
     const cardsController = document.querySelector(".card-carousel + .card-controller")
-
+    
     class DraggingEvent {
         target: HTMLInputElement | undefined
         constructor(target: HTMLInputElement | undefined = undefined) {
@@ -195,16 +197,14 @@ export function useCardsScroll(): void {
 
             if (x < 0) {
                 formula = (scale * 100 - this.cardWidth) / 2
-
                 return formula
 
             } else if (x > 0) {
                 formula = 100 - (scale * 100 + this.cardWidth) / 2
-
                 return formula
+
             } else {
                 formula = 100 - (scale * 100 + this.cardWidth) / 2
-
                 return formula
             }
         }
@@ -231,27 +231,39 @@ export function useCardsScroll(): void {
             if (data.zIndex || data.zIndex == 0) {
                 if (data.zIndex == 0) {
                     card.classList.add("highlight")
+                    const cardId =  document.querySelector('.card[data-x="0"]')?.id !== undefined ? +document.querySelector('.card[data-x="0"]')?.id.replaceAll(' ', '')! : 0;
+                    const numberOfCards = document.querySelectorAll('.card').length
+                    document.getElementById("number_of_card")!.innerHTML = "";
+                    if (Math.floor(numberOfCards / 2) < cardId) {
+                        cardId ? document.getElementById("number_of_card")!.innerHTML = (cardId - Math.floor(numberOfCards / 2)) + '&nbsp;' : null;
+                    } else if (Math.floor(numberOfCards / 2) > cardId) {
+                        cardId ? document.getElementById("number_of_card")!.innerHTML = (cardId + Math.floor((numberOfCards + 1) / 2)) + '&nbsp;' : null;
+                    } else if (cardId === Math.floor(numberOfCards / 2)){
+                        cardId ? document.getElementById("number_of_card")!.innerHTML = numberOfCards + '&nbsp;' : null;
+                    }
                 } else {
                     card.classList.remove("highlight")
                 }
 
                 card.style.zIndex = data.zIndex
             }
+            
         }
 
         calcScale2(x: number) {
             let formula: number;
+            // const multiplier: number = isMobile ? 2 : 5
             if (x <= 0) {
-                formula = 1 - -1 / 5 * x
+                formula = 1 - -1 / 2 * x
                 return formula
             } else {
-                formula = 1 - 1 / 5 * x
+                formula = 1 - 1 / 2 * x
                 return formula
             }
         }
 
         calcScale(x: number) {
-            const formula = 1 - 1 / 5 * Math.pow(x, 2)
+            const formula = 1 - 1 / 6 * Math.pow(x, 2)
 
             if (formula <= 0) {
                 return 0
@@ -323,6 +335,6 @@ export function useCardsScroll(): void {
         }
     }
 
-
+    
     const carousel = cardsContainer ? new CardCarousel(cardsContainer) : null
 }

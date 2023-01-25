@@ -5,6 +5,7 @@ import { Navbar } from './components/Navbar';
 import { Contacts } from './pages/Contacts';
 import { Terms } from './pages/Terms';
 import { Store } from './pages/Store';
+import { Favorites } from './pages/Favorites';
 
 function App() {
   const { isMenuOpen, closeMenu } = useMobileAndLang()
@@ -18,6 +19,7 @@ function App() {
           <Route path='/contacts' element={<Contacts />} />
           <Route path='/terms' element={<Terms />} />
           <Route path='/store' element={<Store />} />
+          <Route path='/fav' element={<Favorites />} />
         </Routes>
       </div>
     </>

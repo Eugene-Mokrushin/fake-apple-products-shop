@@ -7,9 +7,13 @@ import products_data from '../data/cases_data.json'
 import { useSearchParams } from 'react-router-dom'
 import { useMobileAndLang } from '../context/IsMobileLangContext'
 import { useCardsScroll } from "../hooks/useCardsScroll";
+import { useShoppingCart } from '../context/ShoppingCartContext'
+
+
 
 export function Store() {
     const { lang } = useMobileAndLang()
+    const { favItems, addRemoveItemToFav } = useShoppingCart()
 
     const re_img = /_AC_S[A-Z]\d*_/g
 
@@ -20,75 +24,162 @@ export function Store() {
     const wiget_title = store_data.wiget[lang as keyof typeof store_data.wiget]
     const rubrics_titles = store_data.rubrics[lang as keyof typeof store_data.rubrics]
     const subrubrics_titles = store_data.subrubrics[lang as keyof typeof store_data.subrubrics]
+    const subrubrics_titles_en = store_data.subrubrics.en
 
-    const [chosenRubric, setChosenRubric] = useState([rubrics_titles, subrubrics_titles[0]])
-    let match: string = ""
-    const allKeys = Object.keys(products_data[brand as keyof typeof products_data][model])
-    allKeys.forEach(key => {
-        if (key.includes(chosenRubric[1].toLowerCase())) {
-            match = key
-        }
-    })
-    let allCards = (products_data[brand as keyof typeof products_data][model][match] as []).map((card: { images_url: (string)[]; title: string }, index: number) => {
-        const small_link_img = String(card.images_url[0]).replace(re_img, "_AC_SX300_")
-        return (
-            <div className={`${classes.card} card`} id={String(index + 1)} key={index}>
-                <img src={small_link_img} alt="Good preview" className={classes.imgPreview} />
-                <h5 className={classes.title}>{card.title}</h5>
-            </div>
-        )
-    })
-    allCards.length % 2 === 0 ? allCards.pop() : allCards
-    const [cards, setCards] = useState<ReactElement[]>(allCards)
+    const [chosenRubric, setChosenRubric] = useState([rubrics_titles, subrubrics_titles[0], subrubrics_titles_en[0]])
+    const [cards, setCards] = useState<ReactElement[]>([])
 
     function pickRoubrick(subrubric: string): void {
-        setChosenRubric([rubrics_titles, subrubric])
+        const idSubrubric = subrubrics_titles_en.indexOf(subrubric)
+        setChosenRubric([rubrics_titles, subrubrics_titles[idSubrubric], subrubrics_titles_en[idSubrubric]])
     }
+
+    function handleClickFav(e: React.MouseEvent<HTMLImageElement, MouseEvent>, id: string) {
+        addRemoveItemToFav(id);
+        if (e.target && id) {
+            (e.target as HTMLInputElement).src = (e.target as HTMLInputElement).src.split('/').pop() == "heart_filled.svg"
+                ? './imgs/heart.svg'
+                : './imgs/heart_filled.svg'
+        }
+    }
+
     let subrubricsWigets: Array<ReactNode> = []
     store_data.subrubrics.en.forEach((subrubric, index) => {
         subrubricsWigets.push(
-            <div className={classes.subrubric} key={index} onClick={() => pickRoubrick(subrubric)}>
+            <div className={`${classes.subrubric} subrucric`} data-i={index + 1} key={index} onClick={() => pickRoubrick(subrubric)}>
                 <img src={`./rubrics/cases/${subrubric}.png`} alt="widget for subrubric" className={classes.wigetSubrubric} />
                 <span className={classes.title}>{subrubrics_titles[index]}</span>
             </div>
         )
     })
 
+    // Counts rubrics on scroll i.e. "Cases"
     useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('rubrVisible')
+                } else {
+                    entry.target.classList.remove('rubrVisible')
+                }
+                const allVisElement = document.querySelectorAll('.rubrVisible')
+                let i = 0;
+                allVisElement.forEach((element) => {
+                    if (element instanceof HTMLElement) {
+                        if (element.dataset['i'] && +element.dataset['i'] > i) i = +element.dataset['i']
+                    }
+                });
+                if (document.getElementById("rubricCount") !== null) {
+                    document.getElementById("rubricCount")!.innerHTML = "";
+                    document.getElementById("rubricCount")!.innerHTML = i + (lang === "en" ? ' out of ' : ' из ') + subrubrics_titles.length;
+                }
+            })
+        })
+        const rubricElems = document.querySelectorAll(".subrucric")
+        rubricElems.forEach((el) => observer.observe(el))
+    }, [])
 
-        const allKeys = Object.keys(products_data[brand as keyof typeof products_data][model])
-        let match = ''
-        allKeys.forEach(key => {
-            if (key.includes(chosenRubric[1].toLowerCase())) {
-                match = key
+    // Generates cards and assigns currency to them
+    useEffect(() => {
+        async function makeCards() {
+            async function getRub() {
+                const rub_exchange = await fetch('https://api.exchangerate.host/latest?base=USD', {
+                    method: "GET"
+                })
+                    .then(res => res.json())
+                return rub_exchange.rates.RUB
             }
-        })
-        let allCards = (products_data[brand as keyof typeof products_data][model][match] as []).map((card: { images_url: (string)[]; title: string }, index: number) => {
-            const small_link_img = String(card.images_url[0]).replace(re_img, "_AC_SX300_")
-            return (
-                <div className={`${classes.card} card`} id={String(index + 1)} key={index}>
-                    <img src={small_link_img} alt="Good preview" className={classes.imgPreview} />
-                    <h5 className={classes.title}>{card.title}</h5>
-                </div>
-            )
-        })
-        allCards.length % 2 === 0 ? allCards.pop() : allCards
-        // var el = document.querySelector('.card-carousel'),
-        //     elClone = el.cloneNode(true);
+            const currencyMultiplier = lang === "en" ? 1 : await getRub()
+            const allKeys = Object.keys(products_data[brand as keyof typeof products_data][model])
+            let match = ''
+            allKeys.forEach(key => {
+                if (key.includes(chosenRubric[2].toLowerCase())) {
+                    match = key
+                }
+            })
+            
 
-        // el.parentNode.replaceChild(elClone, el);
-        
-        setCards([])
-        setCards(allCards)
-        // document.querySelector('.card-carousel')?.classList.add('fading')
-        setTimeout(() => {
-            useCardsScroll()
-            document.querySelector('.card-carousel')?.classList.remove('fading')
-        }, 10)
-        // useCardsScroll()
+            let allCards = (products_data[brand as keyof typeof products_data][model][match] as []).map((card: { images_url: (string)[]; title: string, price: string, asin: string }, index: number) => {
+                const small_link_img = String(card.images_url[0]).replace(re_img, "_AC_SX300_")
+                const small_card_title = card.title.split(' ').slice(0, 6).join(' ')
+                const realPrice = card.price ? card.price : '$10'
+                const price = lang === "en" ? realPrice : (+realPrice.split("$")[1] * currencyMultiplier).toFixed(2) + "₽"
+                return (
+                    <div className={`${classes.card} card`} id={String(index + 1)} key={index}>
+                        <img src={favItems.includes(card.asin) ? './imgs/heart_filled.svg' : './imgs/heart.svg'}
+                            alt='added to favorite'
+                            data-active={favItems.includes(card.asin) ? true : false}
+                            id={card.asin}
+                            className={classes.favIco}
+                            onClick={(e) => handleClickFav(e, card.asin)}
+                        />
+                        <img src={small_link_img} alt="Good preview" className={classes.imgPreview} />
+                        <div className={classes.titleAndPrice}>
+                            <h5 className={classes.title}>{small_card_title}</h5>
+                            <p className={classes.price}>{price}</p>
+                        </div>
+                    </div>
+                )
+            })
+            allCards.length % 2 === 0 ? allCards.pop() : allCards
+            setCards([])
+            setCards(allCards)
+            setTimeout(() => {
+                useCardsScroll()
+                document.querySelector('.card-carousel')?.classList.remove('fading')
+            }, 10)
+        }
+        makeCards()
+
     }, [chosenRubric, model])
 
+    useEffect(() => {
+        async function makeCards() {
+            async function getRub() {
+                const rub_exchange = await fetch('https://api.exchangerate.host/latest?base=USD', {
+                    method: "GET"
+                })
+                    .then(res => res.json())
+                return rub_exchange.rates.RUB
+            }
+            const currencyMultiplier = lang === "en" ? 1 : await getRub()
+            const allKeys = Object.keys(products_data[brand as keyof typeof products_data][model])
+            let match = ''
+            allKeys.forEach(key => {
+                if (key.includes(chosenRubric[2].toLowerCase())) {
+                    match = key
+                }
+            })
 
+            let allCards = (products_data[brand as keyof typeof products_data][model][match] as []).map((card: { images_url: (string)[]; title: string, price: string, asin: string }, index: number) => {
+                const small_link_img = String(card.images_url[0]).replace(re_img, "_AC_SX300_")
+                const small_card_title = card.title.split(' ').slice(0, 6).join(' ')
+                const realPrice = card.price ? card.price : '$10'
+                const price = lang === "en" ? realPrice : (+realPrice.split("$")[1] * currencyMultiplier).toFixed(2) + "₽"
+                const favItems1 = favItems
+                return (
+                    <div className={`${classes.card} card`} id={String(index + 1)} key={index}>
+                        <img src={favItems1.includes(card.asin) ? './imgs/heart_filled.svg' : './imgs/heart.svg'}
+                            alt='added to favorite'
+                            data-active={favItems1.includes(card.asin) ? true : false}
+                            id={card.asin}
+                            className={classes.favIco}
+                            onClick={(e) => handleClickFav(e, card.asin)}
+                        />
+                        <img src={small_link_img} alt="Good preview" className={classes.imgPreview} />
+                        <div className={classes.titleAndPrice}>
+                            <h5 className={classes.title}>{small_card_title}</h5>
+                            <p className={classes.price}>{price}</p>
+                        </div>
+                    </div>
+                )
+            })
+            allCards.length % 2 === 0 ? allCards.pop() : allCards
+            setCards([])
+            setCards(allCards)
+        }
+        makeCards()
+    }, [chosenRubric, favItems])
 
     return (
         <div className={classes.storeWrapper}>
@@ -99,7 +190,7 @@ export function Store() {
             <div className={classes.rubricsWrapper}>
                 <div className={classes.titleAndCount}>
                     <span className={classes.title}>{rubrics_titles}</span>
-                    <span className={classes.count}> {lang === "en" ? 'out of' : 'из'} {subrubrics_titles.length}</span>
+                    <span className={classes.count} id="rubricCount"></span>
                 </div>
                 <div className={classes.subrubricsWrapper}>
                     {subrubricsWigets}
@@ -108,64 +199,11 @@ export function Store() {
             <div className={classes.subrubricChosen}>
                 <div className={classes.titleAndCount}>
                     <div className={classes.title}>{chosenRubric[0]} {'>'} {chosenRubric[1]}</div>
-                    {/* <div className={classes.count}> {lang === "en" ? 'out of' : 'из'} {cards.length}</div> */}
+                    <div className={classes.count} id="subrubricCount"><div id='number_of_card'></div> {lang === "en" ? ' out of' : ' из'} {cards.length}</div>
                 </div>
                 <div className={`${classes.carouselWrapper} container`}>
                     <div className={`${classes.cardCarousel} card-carousel`}>
-                        {/* {cards.length % 2 === 0 ? cards.pop() : cards} */}
                         {cards}
-                        {/* <div className={`${classes.card} card`} id="1">
-                            <div className="image-container"></div>
-                            <p>1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="2">
-                            <div className="image-container"></div>
-                            <p>2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="3">
-                            <div className="image-container"></div>
-                            <p>3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="4">
-                            <div className="image-container"></div>
-                            <p>4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="5">
-                            <div className="image-container"></div>
-                            <p>5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="6">
-                            <div className="image-container"></div>
-                            <p>5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="7">
-                            <div className="image-container"></div>
-                            <p>5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="8">
-                            <div className="image-container"></div>
-                            <p>5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="9">
-                            <div className="image-container"></div>
-                            <p>5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="10">
-                            <div className="image-container"></div>
-                            <p>5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="11">
-                            <div className="image-container"></div>
-                            <p>5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="11">
-                            <div className="image-container"></div>
-                            <p>5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div>
-                        <div className={`${classes.card} card`} id="11">
-                            <div className="image-container"></div>
-                            <p>5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, explicabo!</p>
-                        </div> */}
                     </div>
                     <a href="#" className={`${classes.visuallyhidden} ${classes.cardController} card-controller`}>Carousel controller</a>
                 </div>

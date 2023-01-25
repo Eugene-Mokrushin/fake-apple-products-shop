@@ -12,6 +12,7 @@ type CartItem = {
 }
 
 type ShoppingCartContext = {
+    addRemoveItemToFav: (id: string) => void
     openCart: () => void
     closeCart: () => void
     getItemQuantity: (id: number) => number
@@ -19,7 +20,8 @@ type ShoppingCartContext = {
     descreaseCartQuantity: (id: number) => void
     removeFromCart: (id: number) => void
     cartQuantity: number
-    cartItems: CartItem[]
+    cartItems: CartItem[],
+    favItems: string[]
 }
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext)
@@ -30,6 +32,7 @@ export function useShoppingCart() {
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("shoping-cart", [])
+    const [favItems, setFavItems] = useLocalStorage<string[]>("fav-items", [])
     const [isOpen, setIsOpen] = useState(false)
     const cartQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0)
 
@@ -43,6 +46,16 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
             }
         }
     }, [isOpen])
+
+    function addRemoveItemToFav(id: string) {
+        setFavItems((prev) => {
+            if (prev.indexOf(id) !== -1) {
+                return prev.filter(item => item !== id)
+            } else {
+                return [...prev, id]
+            }
+        })
+    }
 
     function getItemQuantity(id: number) {
         return cartItems.find(item => item.id === id)?.quantity || 0
@@ -87,6 +100,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
 
     return (
         <ShoppingCartContext.Provider value={{
+            addRemoveItemToFav,
             getItemQuantity,
             increaseCartQuantity,
             descreaseCartQuantity,
@@ -94,7 +108,8 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
             cartItems,
             cartQuantity,
             openCart,
-            closeCart
+            closeCart,
+            favItems
         }}>
             {children}
             {/* <ShopingCart open={isOpen} /> */}
