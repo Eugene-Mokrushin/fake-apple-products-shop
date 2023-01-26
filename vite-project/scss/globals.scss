@@ -40,3 +40,48 @@ body {
     opacity: 0;
     transition: opacity .5s ease-in-out;
 }
+
+.swiper-slide {
+    width: 100% !important;
+}
+
+.swiper-pagination {
+    bottom: 0 !important;
+    opacity: 0;
+}
+
+.swiper {
+    padding-bottom: 20px;
+}
+
+.visiblePaginator {
+    opacity: 1;
+}
+
+.selected::after {
+    // outline: 2px solid $orangeColor;  
+    opacity: 1 !important;
+    transition: opacity .2s;
+
+}
+
+#swiper {
+    border-radius: 20px;
+}
+
+.swiper-pagination-bullet {
+    border-radius: 100%;
+    height: 7px;
+    width: 7px;
+    opacity: 1 !important;
+    background-color: $greyColor;
+
+    &-active {
+        border-radius: 100%;
+        height: 7px;
+        width: 7px;
+        opacity: 1 !important;
+        background-color: $orangeColor;
+        transform: scale(1.3);
+    }
+}

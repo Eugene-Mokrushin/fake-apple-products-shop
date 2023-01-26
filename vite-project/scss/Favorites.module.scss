@@ -46,19 +46,18 @@
             }
 
             .allImagesWrapper {
-                display: flex;
-                overflow: hidden;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                border-radius: 30px;
+                // display: flex;
+                // overflow: hidden;
+                // overflow-x: auto;
+                padding-bottom: 20px;
+                border-top-left-radius: 25px;
 
                 .imgPreview {
-                    scroll-snap-align: center;
                     max-width: 101%;
                     min-width: 101%;
-                    aspect-ratio: 1/1;
+                    height: 100%;
+                    aspect-ratio: 1/1 !important;
                     object-fit: contain;
-                    // border-radius: 30px;
                 }
 
                 .dots {

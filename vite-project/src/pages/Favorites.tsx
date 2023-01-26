@@ -2,9 +2,21 @@ import { ReactNode, useEffect, useState } from 'react'
 import classes from '../../scss/Favorites.module.scss'
 import { useMobileAndLang } from '../context/IsMobileLangContext'
 import { useShoppingCart } from '../context/ShoppingCartContext'
+import { useNavigate } from "react-router-dom";
 import goods from '../data/individual_good.json'
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper";
+
 export function Favorites() {
+    const navigate = useNavigate();
+    const routeChange = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
+        if ((e.target as HTMLElement).classList.contains('favIco')) return
+        let path = `/item?asin=${id}`;
+        navigate(path);
+    }
 
     const { favItems, addRemoveItemToFav } = useShoppingCart()
     const { lang } = useMobileAndLang()
@@ -18,6 +30,16 @@ export function Favorites() {
                 ? './imgs/heart.svg'
                 : './imgs/heart_filled.svg'
         }
+    }
+
+    let timeout: NodeJS.Timeout
+    function revealPaginator(id: string) {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+            document.querySelector(`#${id}`)?.querySelector('.swiper-pagination')?.classList.remove('visiblePaginator')
+            document.querySelectorAll('.visiblePaginator').forEach(el => el.classList.remove('visiblePaginator'))
+        }, 2000)
+        document.querySelector(`#${id}`)?.querySelector('.swiper-pagination')?.classList.add('visiblePaginator')
     }
 
     useEffect(() => {
@@ -39,38 +61,28 @@ export function Favorites() {
 
                 const allImages = (card_data["images_url"] as []).map((image: string, index) => {
                     return (
-                        <img
-                            key={crypto.randomUUID()}
-                            id={`${index + 1}`} src={String(image).replace(re_img, "_AC_SX300_")}
-                            alt="Good preview"
-                            className={`${classes.imgPreview} imgPreview ${id}`}
-                        />
+                        <SwiperSlide key={crypto.randomUUID()}>
+                            <img
+                                src={String(image).replace(re_img, "_AC_SX300_")}
+                                alt="Good preview"
+                                className={`${classes.imgPreview} imgPreview ${id}`}
+                            />
+                        </SwiperSlide>
                     )
                 })
 
                 return (
-                    <div className={`${classes.card} card`} id={String(index + 1)} key={index}>
+                    <div className={`${classes.card} card`} id={String(index + 1)} key={index} onClick={(e) => routeChange(e, id)}>
                         <img src={favItems.includes(id) ? './imgs/heart_filled.svg' : './imgs/heart.svg'}
                             alt='added to favorite'
                             data-active={favItems.includes(id) ? true : false}
-                            id={id}
-                            className={classes.favIco}
+                            className={`${classes.favIco} favIco`}
                             onClick={(e) => handleClickFav(e, id)}
                         />
-                        <div className={classes.allImagesWrapper}>
-                            {allImages}
-                            <div className={classes.dots}>
-                                {allImages.map((img, index: number) => {
-                                    return (
-                                        <div
-                                            className={`${classes.dot} ${index === 0 ? classes.highlighted : ''}`}
-                                            key={crypto.randomUUID()}
-                                            id={`${index + 1}`}
-                                        >
-                                        </div>
-                                    )
-                                })}
-                            </div>
+                        <div className={classes.swiperWrapper} id={id}>
+                            <Swiper onBeforeSlideChangeStart={() => { revealPaginator(id) }} pagination={true} modules={[Pagination]} spaceBetween={1} className={`${classes.allImagesWrapper} mySwiper`}>
+                                {allImages}
+                            </Swiper>
                         </div>
                         <div className={classes.titleAndPrice}>
                             <h5 className={classes.title}>{small_card_title}</h5>

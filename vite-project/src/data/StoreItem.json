@@ -1,0 +1,20 @@
+{
+    "good": {
+        "case": {
+            "en": "Case",
+            "ru": "Кейс"
+        }
+    },
+    "dscr": {
+        "ru": "Описание и характеристики",
+        "en": "Description and features"
+    },
+    "feedback": {
+        "ru": "Отзывы",
+        "en": "Feedback"
+    },
+    "buy_now": {
+        "ru": "Купить сейчас!",
+        "en": "Buy now!"
+    }
+}

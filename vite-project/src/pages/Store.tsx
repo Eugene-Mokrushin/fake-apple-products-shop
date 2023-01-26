@@ -4,7 +4,7 @@ import classes from '../../scss/Store.module.scss'
 import store_data from '../data/Store.json'
 import products_data from '../data/cases_data.json'
 
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useMobileAndLang } from '../context/IsMobileLangContext'
 import { useCardsScroll } from "../hooks/useCardsScroll";
 import { useShoppingCart } from '../context/ShoppingCartContext'
@@ -14,7 +14,7 @@ import { useShoppingCart } from '../context/ShoppingCartContext'
 export function Store() {
     const { lang } = useMobileAndLang()
     const { favItems, addRemoveItemToFav } = useShoppingCart()
-
+    const navigate = useNavigate();
     const re_img = /_AC_S[A-Z]\d*_/g
 
     const [searchParam] = useSearchParams()
@@ -78,6 +78,12 @@ export function Store() {
         const rubricElems = document.querySelectorAll(".subrucric")
         rubricElems.forEach((el) => observer.observe(el))
     }, [])
+
+    function handleOpenGood(e: React.MouseEvent<HTMLDivElement, MouseEvent>, id:string) {
+        if ((e.target as HTMLElement).classList.contains('favIco')) return
+        let path = `/item?asin=${id}`;
+        navigate(path);
+    }
 
     // Generates cards and assigns currency to them
     useEffect(() => {
@@ -158,12 +164,12 @@ export function Store() {
                 const price = lang === "en" ? realPrice : (+realPrice.split("$")[1] * currencyMultiplier).toFixed(2) + "₽"
                 const favItems1 = favItems
                 return (
-                    <div className={`${classes.card} card`} id={String(index + 1)} key={index}>
+                    <div className={`${classes.card} card`} id={String(index + 1)} key={index} onClick={(e) => handleOpenGood(e, card.asin)}>
                         <img src={favItems1.includes(card.asin) ? './imgs/heart_filled.svg' : './imgs/heart.svg'}
                             alt='added to favorite'
                             data-active={favItems1.includes(card.asin) ? true : false}
                             id={card.asin}
-                            className={classes.favIco}
+                            className={`${classes.favIco} favIco`}
                             onClick={(e) => handleClickFav(e, card.asin)}
                         />
                         <img src={small_link_img} alt="Good preview" className={classes.imgPreview} />
