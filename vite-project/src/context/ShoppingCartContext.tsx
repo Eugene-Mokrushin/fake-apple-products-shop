@@ -7,18 +7,16 @@ type ShoppingCartProviderProps = {
 }
 
 type CartItem = {
-    id: number,
+    id: string,
     quantity: number
 }
 
 type ShoppingCartContext = {
     addRemoveItemToFav: (id: string) => void
-    openCart: () => void
-    closeCart: () => void
-    getItemQuantity: (id: number) => number
-    increaseCartQuantity: (id: number) => void
-    descreaseCartQuantity: (id: number) => void
-    removeFromCart: (id: number) => void
+    getItemQuantity: (id: string) => number
+    increaseCartQuantity: (id: string) => void
+    descreaseCartQuantity: (id: string) => void
+    removeFromCart: (id: string) => void
     cartQuantity: number
     cartItems: CartItem[],
     favItems: string[]
@@ -57,10 +55,10 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         })
     }
 
-    function getItemQuantity(id: number) {
+    function getItemQuantity(id: string) {
         return cartItems.find(item => item.id === id)?.quantity || 0
     }
-    function increaseCartQuantity(id: number) {
+    function increaseCartQuantity(id: string) {
         setCartItems(prev => {
             if (prev.find(item => item.id === id) == null) {
                 return [...prev, { id: id, quantity: 1 }]
@@ -75,7 +73,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
             }
         })
     }
-    function descreaseCartQuantity(id: number) {
+    function descreaseCartQuantity(id: string) {
         setCartItems(prev => {
             if (prev.find(item => item.id === id)?.quantity === 0) {
                 return prev.filter(item => item.id !== id)
@@ -90,13 +88,11 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
             }
         })
     }
-    function removeFromCart(id: number) {
+    function removeFromCart(id: string) {
         setCartItems(prev => {
             return prev.filter(item => item.id !== id)
         })
     }
-    const openCart = () => { setIsOpen(true) }
-    const closeCart = () => { setIsOpen(false) }
 
     return (
         <ShoppingCartContext.Provider value={{
@@ -107,8 +103,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
             removeFromCart,
             cartItems,
             cartQuantity,
-            openCart,
-            closeCart,
             favItems
         }}>
             {children}

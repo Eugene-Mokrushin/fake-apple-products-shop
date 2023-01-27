@@ -1,0 +1,16 @@
+{
+    "empty": {
+        "title": {
+            "en": "Cart is empty",
+            "ru": "Корзина пуста"
+        },
+        "subtitle": {
+            "en": "But it's never too late to fix it :)",
+            "ru": "Но это никогда не поздно исправить :)"
+        },
+        "goTo": {
+            "en": "To product catalog",
+            "ru": "В каталог товаров"
+        }
+    }
+}

@@ -69,14 +69,17 @@
         margin-bottom: 7px;
 
         .quantityInCart {
+            display: grid;
+            align-content: center;
+            justify-content: center;
             position: absolute;
-            top: 0;
-            left: 70%;
+            top: -3px;
+            left: 60%;
 
             background-color: $orangeColor;
             border-radius: 50%;
-            height: 15px;
-            width: 15px;
+            height: 16px;
+            width: 16px;
             color: white;
             font-size: 13px;
             line-height: 16px;
@@ -93,7 +96,9 @@
         justify-content: center;
 
         .numFav {
-            aspect-ratio: 1/1;
+            display: grid;
+            align-content: center;
+            justify-content: center;
             // padding-left: 3px;
             // padding-right: 3px;
             position: absolute;
