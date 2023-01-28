@@ -1,5 +1,4 @@
 import { useContext, createContext, ReactNode, useState, useEffect } from "react";
-import { ShopingCart } from "../components/ShopingCart";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 type ShoppingCartProviderProps = {
@@ -16,8 +15,10 @@ type ShoppingCartContext = {
     getItemQuantity: (id: string) => number
     increaseCartQuantity: (id: string) => void
     descreaseCartQuantity: (id: string) => void
-    removeFromCart: (id: string) => void
-    cartQuantity: number
+    removeFromCart: (id: string) => void,
+    pickDeliveryMethod: (method: string) => void,
+    cartQuantity: number,
+    deliveryMethod: string,
     cartItems: CartItem[],
     favItems: string[]
 }
@@ -31,6 +32,7 @@ export function useShoppingCart() {
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("shoping-cart", [])
     const [favItems, setFavItems] = useLocalStorage<string[]>("fav-items", [])
+    const [deliveryMethod, setDeliveryMethod] = useLocalStorage<string>("deliveryMethod", "")
     const [isOpen, setIsOpen] = useState(false)
     const cartQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0)
 
@@ -44,6 +46,10 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
             }
         }
     }, [isOpen])
+
+    function pickDeliveryMethod(method: string) {
+        setDeliveryMethod(method)
+    }
 
     function addRemoveItemToFav(id: string) {
         setFavItems((prev) => {
@@ -102,11 +108,12 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
             descreaseCartQuantity,
             removeFromCart,
             cartItems,
+            deliveryMethod,
             cartQuantity,
+            pickDeliveryMethod,
             favItems
         }}>
             {children}
-            {/* <ShopingCart open={isOpen} /> */}
         </ShoppingCartContext.Provider>
     )
 }

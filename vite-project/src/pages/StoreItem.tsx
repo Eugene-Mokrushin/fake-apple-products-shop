@@ -38,7 +38,7 @@ export function StoreItem() {
     const added_to_cart = main_data.added[lang as keyof typeof main_data.added]
 
     const product_data: GoodData = goods_data[asin as keyof typeof goods_data]
-    const [price, setPrice] = useState(product_data.price)
+    const [price, setPrice] = useState(product_data.price !== "" ? product_data.price : '$10')
     const [dscrState, setDscrSteta] = useState(false)
     const [feedbackState, setFeedbackState] = useState(false)
     const [feedbacks, setFeedbacks] = useState<ReactNode[]>([])
@@ -56,7 +56,8 @@ export function StoreItem() {
                 return rub_exchange.rates.RUB
             }
             const multiplier = await getRub()
-            setPrice((+product_data.price.split("$")[1] * multiplier).toFixed(2) + "₽")
+            const newPrice = product_data.price !== "" ? product_data.price : '$10'
+            setPrice((+newPrice.split("$")[1] * multiplier).toFixed(2) + "₽")
         }
         changePriceCurrency()
     }, [])

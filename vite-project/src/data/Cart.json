@@ -12,5 +12,31 @@
             "en": "To product catalog",
             "ru": "В каталог товаров"
         }
+    },
+    "delivery": {
+        "title": {
+            "en": "Delivery",
+            "ru": "Доставка"
+        },
+        "delivery_uptions": {
+            "courier": {
+                "ru": "Доставка курьером",
+                "en": "Courier delivery"
+            },
+            "selfPickUp": {
+                "en": "Self-Pickup",
+                "ru": "Самовывоз"
+            }
+        }
+    },
+    "total": {
+        "title": {
+            "en": "Total",
+            "ru": "Итого"
+        },
+        "cta": {
+            "en": "Go to checkout",
+            "ru": "Перейти к оформлению"
+        }
     }
 }

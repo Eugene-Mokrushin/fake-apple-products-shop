@@ -1,0 +1,61 @@
+@import './variables';
+
+@function weight($weigh-name) {
+    @return map-get($map: $font-weights, $key: $weigh-name)
+}
+
+;
+
+.goodsTotalWrapper {
+    .minTitle {
+        font-style: normal;
+        font-weight: weight(semi-bold);
+        font-size: 17px;
+        line-height: 21px;
+        color: $absBlack;
+    }
+
+    .allItemsWrapper {
+        margin-top: 10px;
+
+        .item {
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            margin-bottom: 21px;
+
+            .miniPhoto {
+                max-height: 35px;
+                min-height: 35px;
+                max-width: 35px;
+                min-width: 35px;
+                object-fit: contain;
+                border-radius: 5px;
+            }
+
+            .titleAndSubPrice {
+                margin-left: 21px;
+                font-style: normal;
+                font-weight: weight(medium);
+                font-size: 13px;
+                line-height: 16px;
+                color: $absBlack;
+                max-width: 60%;
+                .subPrice {
+                    margin-top: 3px;
+                    white-space: nowrap;
+                }
+            }
+
+            .totalGoodPrice {
+                font-style: normal;
+                font-weight: weight(medium);
+                font-size: 15px;
+                line-height: 18px;
+                margin-left: auto;
+                color: $absBlack;
+                white-space: nowrap;
+            }
+        }
+    }
+}

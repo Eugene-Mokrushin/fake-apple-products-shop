@@ -1,0 +1,289 @@
+@import './variables';
+
+@function weight($weigh-name) {
+    @return map-get($map: $font-weights, $key: $weigh-name)
+}
+
+;
+
+.deliveryWrapper {
+    margin-top: 44px;
+
+    .titleAndPrice {
+        display: flex;
+        justify-content: space-between;
+
+        .mainTitle {
+            font-style: normal;
+            font-weight: weight(semi-bold);
+            font-size: 17px;
+            line-height: 21px;
+            color: $absBlack;
+        }
+
+        .price {
+            font-style: normal;
+            font-weight: weight(medium);
+            font-size: 15px;
+            line-height: 18px;
+            color: $absBlack;
+        }
+    }
+
+    .selfWrapper {
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+
+        img {
+            border-radius: 10px;
+            max-height: 150px;
+            max-width: 100%;
+            min-width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .courierDelivery {
+        margin-top: 15px;
+
+        .courierTitle {
+            display: flex;
+            align-items: center;
+        }
+
+        .deliveryAddressTitle {
+            margin-left: 10px;
+            font-style: normal;
+            font-weight: weight(medium);
+            font-size: 15px;
+            line-height: 18px;
+            color: $absBlack;
+        }
+
+        .citiesWrapper {
+            background: $inputGrey;
+            margin-top: 15px;
+            border-radius: 15px;
+
+            .selected {
+                display: flex;
+                padding: 0 15px;
+                align-items: center;
+                justify-content: space-between;
+                min-height: 45px;
+                // border-bottom: 1px solid $greyColor;
+
+                .citySelcted {
+                    font-style: normal;
+                    font-weight: weight(medium);
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: $almostBlack;
+                }
+
+                .tick {
+                    transform: rotateZ(0deg);
+                    transition: .4s;
+                }
+            }
+
+            .selectedClosed {
+
+                // border-bottom : none;
+                .tick {
+                    transition: .4s;
+                    transform: rotateZ(180deg);
+                }
+            }
+
+            .otherOptions {
+                overflow: hidden;
+
+                // display: none;
+                .cityOption {
+                    display: grid;
+                    align-content: center;
+                    padding: 0 15px;
+                    background: $inputGrey;
+                    min-height: 35px;
+                    font-style: normal;
+                    font-weight: weight(medium);
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: $inputText;
+                    border-bottom: 1px dashed $greyColor;
+
+                    &:last-child {
+                        border-bottom: none;
+                        border-bottom-left-radius: 15px;
+                        border-bottom-right-radius: 15px;
+                    }
+                }
+            }
+
+            .otherOprionsOpened {
+                max-height: 500px;
+                transition: max-height .4s;
+            }
+
+            .otherOprionsClosed {
+                max-height: 0px;
+                transition: max-height .4s;
+            }
+        }
+
+        .street {
+            width: calc(100% - 28px);
+            margin-top: 6px;
+            outline: none;
+            border: none;
+            border-radius: 15px;
+            background-color: $inputGrey;
+            min-height: calc(45px - 28px);
+            padding: 14px;
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: weight(medium);
+            font-size: 15px;
+            line-height: 18px;
+            position: relative;
+
+            &::placeholder {
+                font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: weight(medium);
+                font-size: 15px;
+                line-height: 18px;
+                color: $inputText;
+                background-image: url('/imgs/pen.svg');
+                background-repeat: no-repeat;
+                background-position-x: 100%;
+            }
+        }
+
+        .houses {
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+
+            .house {
+                width: 40%;
+                outline: none;
+                border: none;
+                border-radius: 15px;
+                background-color: $inputGrey;
+                min-height: calc(45px - 28px);
+                padding: 14px;
+                font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: weight(medium);
+                font-size: 15px;
+                line-height: 18px;
+                position: relative;
+
+                &::placeholder {
+                    font-family: 'Montserrat';
+                    font-style: normal;
+                    font-weight: weight(medium);
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: $inputText;
+                    background-image: url('/imgs/pen.svg');
+                    background-repeat: no-repeat;
+                    background-position-x: 100%;
+                }
+            }
+
+            .houseAdd {
+                width: 40%;
+                outline: none;
+                border: none;
+                border-radius: 15px;
+                background-color: $inputGrey;
+                min-height: calc(45px - 28px);
+                padding: 14px;
+                font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: weight(medium);
+                font-size: 15px;
+                line-height: 18px;
+                position: relative;
+
+                &::placeholder {
+                    font-family: 'Montserrat';
+                    font-style: normal;
+                    font-weight: weight(medium);
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: $inputText;
+                    background-image: url('/imgs/pen.svg');
+                    background-repeat: no-repeat;
+                    background-position-x: 100%;
+                }
+            }
+        }
+
+        .floorAndApartment {
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+
+            .floor {
+                width: 40%;
+                outline: none;
+                border: none;
+                border-radius: 15px;
+                background-color: $inputGrey;
+                min-height: calc(45px - 28px);
+                padding: 14px;
+                font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: weight(medium);
+                font-size: 15px;
+                line-height: 18px;
+                position: relative;
+
+                &::placeholder {
+                    font-family: 'Montserrat';
+                    font-style: normal;
+                    font-weight: weight(medium);
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: $inputText;
+                    background-image: url('/imgs/pen.svg');
+                    background-repeat: no-repeat;
+                    background-position-x: 100%;
+                }
+            }
+
+            .apartment {
+                width: 40%;
+                outline: none;
+                border: none;
+                border-radius: 15px;
+                background-color: $inputGrey;
+                min-height: calc(45px - 28px);
+                padding: 14px;
+                font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: weight(medium);
+                font-size: 15px;
+                line-height: 18px;
+                position: relative;
+
+                &::placeholder {
+                    font-family: 'Montserrat';
+                    font-style: normal;
+                    font-weight: weight(medium);
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: $inputText;
+                    background-image: url('/imgs/pen.svg');
+                    background-repeat: no-repeat;
+                    background-position-x: 100%;
+                }
+            }
+        }
+
+    }
+}

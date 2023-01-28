@@ -6,12 +6,17 @@
 
 ;
 
+.wrapper {
+    width: 100%;
+}
+
 .item {
     position: relative;
     display: flex;
     flex-direction: column;
     padding: 18px 25px 18px 30px;
     margin-top: 20px;
+    
 
     background: #FFFFFF;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
@@ -22,6 +27,7 @@
     .bin {
         position: absolute;
         left: 90%;
+        min-height: 25px;
         margin-left: auto;
     }
 
@@ -30,7 +36,10 @@
         align-items: center;
 
         img {
+            object-fit: contain;
             max-height: 80px;
+            min-height: 80px;
+            min-width: 80px;
             border-radius: 10px;
         }
 

@@ -1,0 +1,84 @@
+{
+    "goodsTotal": {
+        "en": "Goods",
+        "ru": "Товары"
+    },
+    "delivery": {
+        "courier": {
+            "ru": "Доставка курьером",
+            "en": "Courier delivery"
+        },
+        "selfPickUp": {
+            "en": "Self-Pickup",
+            "ru": "Самовывоз"
+        }
+    },
+    "addresTitle": {
+        "en": "Delivery address",
+        "ru": "Адрес доставки"
+    },
+    "cities": {
+        "en": [
+            "Paris",
+            "Munich",
+            "New York",
+            "Moscow",
+            "Tokyo"
+        ],
+        "ru": [
+            "Париж",
+            "Мюнхен",
+            "Нью Йорк",
+            "Москва",
+            "Токио"
+        ]
+    },
+    "addresSubTitle": {
+        "street": {
+            "en": "Street / District",
+            "ru": "Улица / Район"
+        },
+        "house": {
+            "en": "House",
+            "ru": "Дом"
+        },
+        "houseExtra": {
+            "en": "Add. info",
+            "ru": "Корпус"
+        },
+        "floor": {
+            "en": "Floor",
+            "ru": "Этаж"
+        },
+        "flat": {
+            "en": "Apartment",
+            "ru": "Квартира"
+        }
+    },
+    "paymentMethodTitle": {
+        "en": "Payment method",
+        "ru": "Способ оплаты"
+    },
+    "paymontMethods": {
+        "qiwi": {
+            "en": "Prepayment on Qiwi",
+            "ru": "Предоплата на Qiwi"
+        },
+        "delivered": {
+            "en": "Upon receipt",
+            "ru": "При получении"
+        }
+    },
+    "promo": {
+        "en": "Have a promo code?",
+        "ru": "Есть промокод?"
+    },
+    "total": {
+        "en": "Total",
+        "ru": "К оплате"
+    },
+    "ctaBtn": {
+        "en": "Place an order",
+        "ru": "Разместить заказ"
+    }
+}
