@@ -6,9 +6,112 @@
 
 ;
 
-.checkoutWrapper {
+.container {
     font-family: 'Montserrat';
-    padding: 0 40px;
-    padding-top: 31px;
+    min-height: calc(100vh - 63px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #fff;
+
+    .checkoutWrapper {
+        padding: 0 40px;
+        padding-top: 31px;
+        background-color: #fff;
+    }
+
+    .totalWrapperPlaceOrder {
+        margin-top: 20px;
+
+        .total {
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .priceAndDiscaout {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .title {
+                font-style: normal;
+                font-weight: weight(semi-bold);
+                font-size: 15px;
+                line-height: 18px;
+                color: $absBlack;
+            }
+
+            .sum {
+                font-style: normal;
+                font-weight: weight(semi-bold);
+                font-size: 24px;
+                line-height: 29px;
+                text-align: right;
+                color: $absBlack;
+            }
+
+            .oldPrice {
+                text-decoration: line-through;
+            }
+
+            .newPrice {
+                font-style: normal;
+                font-weight: weight(semi-bold);
+                font-size: 20px;
+                line-height: 18px;
+                text-align: right;
+                color: $orangeColor;
+            }
+        }
+
+        .placeOrderWrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-top: 45px;
+            background-color: $placeOrder;
+            height: 117px;
+            padding: 0 40px;
+
+            .button {
+                margin: 30px 0px;
+                display: grid;
+                align-content: center;
+                justify-content: center;
+                height: 65px;
+                width: 100%;
+                background: $almostBlack;
+                box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+                border-radius: 20px;
+                font-style: normal;
+                font-weight: weight(semi-bold);
+                font-size: 17px;
+                line-height: 21px;
+                text-align: center;
+                color: #FFFFFF;
+                transition: .4s;
+                transform: scale(1);
+
+                &:active {
+                    transition: .4s;
+                    transform: scale(0.95);
+                }
+            }
+
+            @for $i from 0 through 1000 {
+                .ribbonTriangle:nth-child(#{$i}) {
+                    position: absolute;
+                    top: -14px;
+                    left: ($i - 1)* 10px;
+                    width: 0;
+                    height: 0;
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                    border-bottom: 15px solid $placeOrder;
+                }
+            }
+        }
+    }
 }

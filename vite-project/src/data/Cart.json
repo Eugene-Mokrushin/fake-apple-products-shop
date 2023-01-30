@@ -38,5 +38,12 @@
             "en": "Go to checkout",
             "ru": "Перейти к оформлению"
         }
+    },
+    "allPromocodes" : ["test", "ELINA", "2023Elina"],
+    "promocodes": {
+        "test": 20,
+        "ELINA": 99,
+        "2023Elina" : 50
     }
+
 }
