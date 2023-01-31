@@ -80,7 +80,7 @@
                 font-size: 17px;
                 line-height: 21px;
                 text-align: right;
-                color: $redColor;
+                color: $orangeColor;
             }
         }
 
@@ -346,6 +346,7 @@
         margin-bottom: 22px;
 
         .addToCart {
+            user-select: none;
             display: grid;
             align-content: center;
             justify-content: center;
@@ -366,6 +367,7 @@
         }
 
         .buyNow {
+            user-select: none;
             display: grid;
             align-content: center;
             justify-content: center;
@@ -382,9 +384,17 @@
             text-align: center;
 
             color: #FFFFFF;
+            transition: transform .3s;
+            transform: scale(1);
+
+            &:active {
+                transition: transform .3s;
+                transform: scale(0.9);
+            }
         }
 
         .whatsApp {
+            user-select: none;
             display: grid;
             align-content: center;
             justify-content: center;
@@ -395,6 +405,14 @@
             background: $whatsappColor;
             box-shadow: 0px 0px 20px rgba(67, 216, 84, 0.25);
             border-radius: 15px;
+
+            transition: transform .3s;
+            transform: scale(1);
+
+            &:active {
+                transition: transform .3s;
+                transform: scale(0.9);
+            }
         }
     }
 

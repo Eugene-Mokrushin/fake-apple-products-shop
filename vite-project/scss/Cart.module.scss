@@ -22,6 +22,10 @@
 
         .emptyCartTitleAndImg {
             position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             top: 30%;
             transform: translateY(-40%);
 
@@ -98,7 +102,7 @@
         width: 90%;
         margin: 0 auto;
         margin-top: 20px;
-
+        
         .delivery {
             padding: 18px 30px 18px 30px;
             background: #FFFFFF;

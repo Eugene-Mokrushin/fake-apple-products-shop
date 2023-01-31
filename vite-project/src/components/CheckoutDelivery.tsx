@@ -6,10 +6,11 @@ import { useState } from 'react';
 type CheckoutDeliveryProps = {
     lang: string,
     deliveryMethod: string,
-    currencyMultiplier: number
+    currencyMultiplier: number,
+    handleDeliveryInfo: (e: React.ChangeEvent<HTMLInputElement> | null, city?: string) => void
 }
 
-export function CheckoutDelivery({ lang, deliveryMethod, currencyMultiplier }: CheckoutDeliveryProps) {
+export function CheckoutDelivery({ lang, deliveryMethod, currencyMultiplier, handleDeliveryInfo }: CheckoutDeliveryProps) {
     const deliveryOptionCourierChecker = cart_data.delivery.delivery_uptions.courier.en
     const deliveryOptionPickupChecker = cart_data.delivery.delivery_uptions.selfPickUp.en
 
@@ -27,6 +28,7 @@ export function CheckoutDelivery({ lang, deliveryMethod, currencyMultiplier }: C
     function handlePickCity(city: string) {
         setCityState(false)
         setCity(city)
+        handleDeliveryInfo(null, city)
     }
 
     const allOtherCities = checkout_data.cities[lang as keyof typeof checkout_data.cities].map(cityOption => {
@@ -69,14 +71,14 @@ export function CheckoutDelivery({ lang, deliveryMethod, currencyMultiplier }: C
                             {allOtherCities}
                         </div>
                     </div>
-                    <input type="text" required={true} className={classes.street} placeholder={street}></input>
+                    <input type="text" name='street' onChange={(e) => handleDeliveryInfo(e)} required={true} className={classes.street} placeholder={street}></input>
                     <div className={classes.houses}>
-                        <input type="text" required={true} className={classes.house} placeholder={house}></input>
-                        <input type="text" className={classes.houseAdd} placeholder={houseExtra}></input>
+                        <input type="text" name='house' onChange={(e) => handleDeliveryInfo(e)} required={true} className={classes.house} placeholder={house}></input>
+                        <input type="text" name='houseAdd' onChange={(e) => handleDeliveryInfo(e)} className={classes.houseAdd} placeholder={houseExtra}></input>
                     </div>
                     <div className={classes.floorAndApartment}>
-                        <input type="text" className={classes.floor} placeholder={floor}></input>
-                        <input type="text" required={true} className={classes.apartment} placeholder={flat}></input>
+                        <input type="text" name='floor' onChange={(e) => handleDeliveryInfo(e)} className={classes.floor} placeholder={floor}></input>
+                        <input type="text" name='appertment' onChange={(e) => handleDeliveryInfo(e)} required={true} className={classes.apartment} placeholder={flat}></input>
                     </div>
                 </div>
             }

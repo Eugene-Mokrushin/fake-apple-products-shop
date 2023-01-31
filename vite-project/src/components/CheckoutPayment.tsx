@@ -4,25 +4,21 @@ import checkout_data from '../data/Checkout.json';
 
 type CheckoutPaymentProps = {
     lang: string,
-    handlePromo: (value: string) => void
+    handlePromo: (value: string) => void,
+    methodSelected: string,
+    handleChengePayment: () => void
 }
 
-export function CheckoutPayment({ lang, handlePromo }: CheckoutPaymentProps) {
+export function CheckoutPayment({ lang, handlePromo, methodSelected, handleChengePayment }: CheckoutPaymentProps) {
     const mainTitle = checkout_data.paymentMethodTitle[lang as keyof typeof checkout_data.paymentMethodTitle]
     const promo = checkout_data.promo[lang as keyof typeof checkout_data.promo]
     const uponDelivery = checkout_data.paymontMethods.delivered[lang as keyof typeof checkout_data.paymontMethods.delivered]
     const qiwi = checkout_data.paymontMethods.qiwi[lang as keyof typeof checkout_data.paymontMethods.qiwi]
 
-    const [methodSelected, setMethodSelected] = useState(qiwi)
     const [paymontsState, setPaymontsState] = useState(false)
     const promoRef = useRef<HTMLInputElement | null>(null)
 
-    function handleChengePayment() {
-        setPaymontsState(false)
 
-        const newSelect = methodSelected === qiwi ? uponDelivery : qiwi
-        setMethodSelected(newSelect)
-    }
 
     return (
         <div className={classes.paymentWrapper}>
@@ -42,7 +38,7 @@ export function CheckoutPayment({ lang, handlePromo }: CheckoutPaymentProps) {
                     </svg>
                 </div>
                 <div className={`${classes.otherOptions} ${paymontsState ? classes.otherOptionsOpened : classes.otherOptionsClosed}`}>
-                    <div className={classes.option} onClick={() => handleChengePayment()}>
+                    <div className={classes.option} onClick={() => {setPaymontsState(false); handleChengePayment()}}>
                         {methodSelected !== qiwi ?
                             <svg className={classes.thumbImg} width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 0H22V2H0V0ZM0 14H22V16H0V14ZM18.622 10.914L18.448 10.044H16.499L16.189 10.907L14.627 10.91C15.632 8.504 16.377 6.72 16.863 5.562C16.99 5.259 17.216 5.105 17.548 5.107C17.802 5.109 18.217 5.109 18.793 5.107L20 10.912L18.622 10.915V10.914ZM16.938 8.852H18.194L17.724 6.672L16.938 8.852ZM6.872 5.106L8.442 5.108L6.015 10.914L4.425 10.913C3.888 8.843 3.493 7.307 3.241 6.308C3.164 6.001 3.011 5.787 2.715 5.686C2.452 5.596 2.014 5.456 1.4 5.267V5.107H3.909C4.343 5.107 4.596 5.317 4.678 5.747L5.298 9.036L6.872 5.106ZM10.599 5.108L9.359 10.913L7.864 10.911L9.104 5.106L10.599 5.108ZM13.631 5C14.077 5 14.641 5.138 14.965 5.267L14.703 6.471C14.41 6.353 13.928 6.194 13.523 6.201C12.933 6.21 12.569 6.457 12.569 6.694C12.569 7.078 13.201 7.272 13.853 7.693C14.596 8.173 14.693 8.603 14.684 9.071C14.674 10.042 13.853 11 12.12 11C11.329 10.988 11.044 10.922 10.4 10.694L10.672 9.438C11.328 9.712 11.607 9.799 12.167 9.799C12.682 9.799 13.123 9.592 13.127 9.231C13.129 8.974 12.972 8.847 12.395 8.529C11.818 8.212 11.01 7.773 11.02 6.889C11.033 5.759 12.107 5 13.63 5H13.631Z" fill="#101010" />

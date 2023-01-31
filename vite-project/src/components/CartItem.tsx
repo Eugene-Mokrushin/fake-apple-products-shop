@@ -1,7 +1,8 @@
-import { useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import classes from '../../scss/CartItem.module.scss'
 import { useMobileAndLang } from '../context/IsMobileLangContext'
+import { useSelectedSection } from '../context/IsSectionSelectedContext'
 import { useShoppingCart } from '../context/ShoppingCartContext'
 import goods_data from '../data/individual_good.json'
 
@@ -10,7 +11,8 @@ type CartItemProps = {
         id: string,
         quantity: number
     },
-    multiplier: number
+    multiplier: number,
+    instaQuan: number | null
 }
 
 type GoodData = {
@@ -24,12 +26,18 @@ type GoodData = {
     "images_url": string[]
 }
 
-export function CartItem({ item, multiplier }: CartItemProps) {
+export function CartItem({ item, multiplier, instaQuan=null }: CartItemProps) {
     const { lang } = useMobileAndLang()
+    const { search } = useLocation();
     const { increaseCartQuantity, descreaseCartQuantity, removeFromCart, cartItems } = useShoppingCart()
+    const { setSection } = useSelectedSection()
     const itemRef = useRef(null)
     const navigate = useNavigate()
-
+    const parameters = new URLSearchParams(search);
+    const instantBuy = parameters.get('instant');
+    
+    if (instantBuy) { }
+    
     const re_img = /_AC_S[A-Z]\d*_/g
     const asin = item.id
     const product_data: GoodData = goods_data[asin as keyof typeof goods_data]
@@ -39,7 +47,7 @@ export function CartItem({ item, multiplier }: CartItemProps) {
     const totalPrice = lang === "en" ? `$${(item.quantity * itemPrice).toFixed(2)}` : `${(item.quantity * itemPrice).toFixed(2)} ₽`
     const productTitle = product_data.title.split(' ').splice(1, 6).join(' ')
     const thumbImg = product_data.images_url[0].replace(re_img, "_AC_SX200_")
-
+    
     function handleGoToStoreItem(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         if ((e.target as HTMLElement).classList.contains('bin')) return
         let path = `/item?asin=${asin}`;
@@ -47,6 +55,12 @@ export function CartItem({ item, multiplier }: CartItemProps) {
     }
 
     function handleRemoveFromCart() {
+        if (instantBuy) {
+            navigate('/cart')
+            setSection(lang === "en" ? "Cart" : "Корзина")
+            return
+        }
+
         if (itemRef.current !== null) {
             const placeholder = document.createElement("div")
             placeholder.classList.add("replacer")
@@ -93,11 +107,11 @@ export function CartItem({ item, multiplier }: CartItemProps) {
                 </div>
                 <div className={classes.quantInCartAndTotal}>
                     <div className={classes.quant}>
-                        <div className={classes.decrease} onClick={() => descreaseCartQuantity(asin)}>-</div>
-                        <div className={classes.quan}>{item.quantity}</div>
-                        <div className={classes.increase} onClick={() => increaseCartQuantity(asin)}>+</div>
+                        <div className={classes.decrease} onClick={() => { instantBuy && instaQuan ? instaQuan <= 0 ? null : navigate(`/cart?instant=${asin}$${instaQuan - 1}`) : descreaseCartQuantity(asin) }}>-</div>
+                        <div className={classes.quan}>{instantBuy ? instaQuan : item.quantity}</div>
+                        <div className={classes.increase} onClick={() => { instantBuy && instaQuan ? navigate(`/cart?instant=${asin}$${instaQuan + 1}`) : increaseCartQuantity(asin) }}>+</div>
                     </div>
-                    <div className={classes.total}>{totalPrice}</div>
+                    <div className={`${classes.total} `}>{totalPrice}</div>
                 </div>
             </div>
         </div>

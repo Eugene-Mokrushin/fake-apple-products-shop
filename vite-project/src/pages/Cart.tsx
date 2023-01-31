@@ -1,6 +1,6 @@
 import { useMobileAndLang } from "../context/IsMobileLangContext"
 import { useShoppingCart } from "../context/ShoppingCartContext"
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import classes from '../../scss/Cart.module.scss'
 import cart_data from '../data/Cart.json'
 import { CartItem } from "../components/CartItem"
@@ -29,6 +29,15 @@ export function Cart() {
     const { setSection } = useSelectedSection()
     const { cartItems, deliveryMethod, pickDeliveryMethod } = useShoppingCart()
     const { lang } = useMobileAndLang()
+    const { search } = useLocation();
+    const parameters = new URLSearchParams(search);
+    const navigate = useNavigate()
+    const instantBuy = parameters.get('instant');
+
+    let newCartItems = cartItems
+    if (instantBuy !== null) {
+        newCartItems = [{ "id": instantBuy.split("$")[0], "quantity": +instantBuy.split("$")[1] }]
+    }
 
     const emptyTitle = cart_data.empty.title[lang as keyof typeof cart_data.empty.title]
     const emptySubTitle = cart_data.empty.subtitle[lang as keyof typeof cart_data.empty.subtitle]
@@ -42,17 +51,26 @@ export function Cart() {
     const totalCta = cart_data.total.cta[lang as keyof typeof cart_data.total.cta]
     const [currencyMultiplier, setCurrencyMultiplier] = useState<number>(1)
     const [deliveryMenuState, setDeliveryMenuState] = useState<boolean>(false)
-
-    const allCartItems = cartItems.map((item: ItemData) => {
+    
+    const allCartItems = newCartItems.map((item: ItemData) => {
         return (
-            <CartItem item={item} multiplier={currencyMultiplier} key={crypto.randomUUID()} />
+            <CartItem item={item} multiplier={currencyMultiplier} key={crypto.randomUUID()} instaQuan={item.quantity} />
         )
     })
 
-    const calculatedTotal = (+cartItems.reduce((acc, curentValue) => {
+    const calculatedTotal = (+newCartItems.reduce((acc, curentValue) => {
         return acc + curentValue.quantity * ((allgoods_data[curentValue.id as keyof {}] as GoodData).price !== '' ? +(allgoods_data[curentValue.id as keyof {}] as GoodData).price.split('$')[1] : 10)
     }, 0) * currencyMultiplier + (deliveryMethod === deliveryOptionCourierChecker ? lang === "en" ? 10.99 : 10.99 * currencyMultiplier : 0)).toFixed(2)
 
+
+    function handleGoToCheckput() {
+        setSection(lang === "en" ? "Checkout" : "Оформление заказа")
+        if (instantBuy) {
+            navigate(`/checkout?instant=${instantBuy.split("$")[0]}$${instantBuy.split("$")[1]}`)
+        } else {
+            navigate(`/checkout`)
+        }
+    }
 
     useEffect(() => {
         async function changePriceCurrency() {
@@ -73,7 +91,7 @@ export function Cart() {
 
     return (
         <div className={classes.cartWrapper}>
-            {cartItems.length === 0 ? (
+            {newCartItems.length === 0 ? (
                 <div className={classes.emptyCart}>
                     <div className={classes.emptyCartTitleAndImg}>
                         <img src="./imgs/cartBG.svg" alt="Cart is empty" className={classes.emptyCartBG} />
@@ -135,9 +153,7 @@ export function Cart() {
                             <div className={classes.title}>{totalTitle.toUpperCase()}</div>
                             <div className={classes.price}>{lang === "en" ? `$${calculatedTotal}` : `${calculatedTotal} ₽`}</div>
                         </div>
-                        <Link to={`/checkout`} onClick={() => { setSection(lang === "en" ? "Checkout" : "Оформление заказа") }} style={{ textDecoration: "none" }}>
-                            <div className={classes.btn}>{totalCta}</div>
-                        </Link>
+                        <div className={classes.btn} onClick={() => handleGoToCheckput()}>{totalCta}</div>
                     </div>
                 </div>
             )}

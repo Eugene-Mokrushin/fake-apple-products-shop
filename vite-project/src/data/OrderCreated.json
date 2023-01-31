@@ -1,0 +1,10 @@
+{
+    "info": {
+        "en": "Your order has been placed.<br>Your order number №",
+        "ru": "Заказ размещен.<br>Номер вашего заказа №"
+    },
+    "btn": {
+        "en": "Go to shopping!",
+        "ru": "На главную"
+    }
+}   

@@ -20,5 +20,9 @@
     "added": {
         "en": "Added to cart!",
         "ru": "Добавлено в корзину!"
+    },
+    "insta_buy": {
+        "en": "Buy now!",
+        "ru": "В один клик"
     }
 }
