@@ -41,6 +41,39 @@ body {
     transition: opacity .5s ease-in-out;
 }
 
+.mySwiperSection {
+    .swiper-slide {
+        width: auto !important;
+    }
+}
+.mobileSwiperSection {
+    .swiper-slide-prev {
+        z-index: 1;
+        // margin-left: 50px !important;
+        transition: transform .5s;
+        transform: scale(1) translateX(60px);
+    }
+    .swiper-slide-active {
+        transform: scale(1.05) translateX(0px);
+        transition: transform .5s;
+        z-index: 2;
+        .card {
+
+            filter: grayscale(0);
+        }
+    }
+    .swiper-slide-next {
+        z-index: 1;
+        // margin-left: -50px !important;
+        transition: transform .5s;
+        transform: scale(1) translateX(-60px);
+        
+    }
+    .card {
+        filter: grayscale(100%);
+    }
+}
+
 .swiper-slide {
     width: 100% !important;
     min-height: 100%;
@@ -111,6 +144,7 @@ body {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }

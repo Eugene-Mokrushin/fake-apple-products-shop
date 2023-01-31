@@ -1,0 +1,26 @@
+{
+    "title": {
+        "en": "Online store for phone accessories",
+        "ru": "Онлайн магазин аксессуаров для телефонов"
+    },
+    "wireless": {
+        "en": "Wireless headphones",
+        "ru": "Беспроводные наушники"
+    },
+    "lightning": {
+        "en": "Headphones - lightning",
+        "ru": "Наушники - lightning"
+    },
+    "jack": {
+        "ru": "Наушники - 3.5 (jack)",
+        "en": "Headphones - 3.5 (jack)"
+    },
+    "powerbanks": {
+        "ru": "Пауэрбанки",
+        "en": "Powerbanks"
+    },
+    "headset": {
+        "en": "Overear headphones",
+        "ru": "Накладные наушники"
+    }
+}

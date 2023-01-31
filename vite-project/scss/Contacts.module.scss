@@ -38,6 +38,7 @@
 
             .text {
                 margin-left: 11px;
+
                 a {
                     text-decoration: none;
                 }
@@ -62,7 +63,7 @@
     }
 
     .socialsWrapper {
-        user-select: none;  
+        user-select: none;
         margin-top: 20px;
         display: flex;
         justify-content: space-around;
@@ -72,7 +73,7 @@
         flex: 2;
 
         .social {
-            user-select: none;  
+            user-select: none;
             display: grid;
             align-items: center;
             justify-content: center;

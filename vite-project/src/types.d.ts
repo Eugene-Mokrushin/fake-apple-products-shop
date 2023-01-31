@@ -1,1 +1,0 @@
-declare module '@qiwi/bill-payments-node-js-sdk';

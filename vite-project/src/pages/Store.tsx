@@ -84,7 +84,7 @@ export function Store() {
         let path = `/item?asin=${id}`;
         navigate(path);
     }
-
+    
     // Generates cards and assigns currency to them
     useEffect(() => {
         async function makeCards() {

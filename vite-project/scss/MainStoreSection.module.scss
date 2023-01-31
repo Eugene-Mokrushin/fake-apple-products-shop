@@ -1,0 +1,112 @@
+@import './variables';
+
+@function weight($weigh-name) {
+    @return map-get($map: $font-weights, $key: $weigh-name)
+}
+
+;
+
+.sectionWrapper {
+    margin-top: 35px;
+
+    .titleSectionAndCounter {
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .sectionTitle {
+            font-style: normal;
+            font-weight: weight(semi-bold);
+            font-size: 20px;
+            line-height: 24px;
+            color: $greyColor;
+        }
+
+        .counter {
+            font-style: normal;
+            font-weight: weight(medium);
+            font-size: 15px;
+            line-height: 18px;
+            text-align: right;
+
+            color: $greyColor;
+        }
+
+    }
+
+    .cardsWrapper {
+        width: 100%;
+
+        .mySwiperSection {
+            padding-top: 20px;
+            width: 100%;
+        }
+
+        .card {
+            user-select: none;
+            aspect-ratio: 1/1 !important;
+            position: relative;
+            background: #FFFFFF;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            // width: 330px;
+            max-width: 60vw;
+            min-height: 313px;
+            // max-height: 313px;
+            // height: 460px;
+            // max-width: 370px;
+            margin: 0 auto;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            transition: inherit;
+
+            .favIco {
+                z-index: 10;
+                transform: scale(1.3);
+                position: absolute;
+                left: 87%;
+                top: 7%;
+            }
+
+            .imgPreview {
+                max-height: 70%;
+                aspect-ratio: 1/1;
+                object-fit: contain;
+            }
+
+            .titleAndPrice {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+
+                .title {
+                    font-style: normal;
+                    font-weight: weight(semi-bold);
+                    font-size: 17px;
+                    line-height: 21px;
+                    width: 50%;
+                    color: $blueishBlack;
+                    text-overflow: ellipsis;
+                }
+
+                .price {
+                    display: grid;
+                    align-content: center;
+                    justify-content: center;
+                    font-style: normal;
+                    font-weight: weight(semi-bold);
+                    font-size: 17px;
+                    line-height: 21px;
+                    text-align: right;
+                    color: $orangeColor;
+                }
+            }
+
+        }
+    }
+
+}
