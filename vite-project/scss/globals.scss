@@ -48,29 +48,41 @@ body {
 }
 .mobileSwiperSection {
     .swiper-slide-prev {
+        opacity: 1 !important;
         z-index: 1;
         // margin-left: 50px !important;
-        transition: transform .5s;
-        transform: scale(1) translateX(60px);
+        transition: transform .5s, opacity 1s;
+        transform: scale(0.9) translateX(60px) !important;
     }
     .swiper-slide-active {
-        transform: scale(1.05) translateX(0px);
-        transition: transform .5s;
+        opacity: 1 !important;
+        transform: scale(1) translateX(0px) !important;
+        transition: transform .5s, opcity .5s;
         z-index: 2;
-        .card {
 
-            filter: grayscale(0);
-        }
     }
     .swiper-slide-next {
+        opacity: 1 !important;
         z-index: 1;
         // margin-left: -50px !important;
-        transition: transform .5s;
-        transform: scale(1) translateX(-60px);
-        
+        transition: transform .5s, opacity 1s;
+        transform: scale(0.9) translateX(-60px) !important;
     }
-    .card {
-        filter: grayscale(100%);
+
+    .swiper-slide-next~.swiper-slide {
+        transform: scale(0.9) translateX(-60px) !important;
+    }
+
+    .swiper-slide {
+        transform: scale(0.9) translateX(60px);
+    }
+}
+
+.allImagesWrapper {
+    .swiper-slide {
+        display: grid;
+        align-content: center;
+        justify-content: center
     }
 }
 

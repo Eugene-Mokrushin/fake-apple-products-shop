@@ -22,6 +22,7 @@
 
         .emptyCartTitleAndImg {
             position: absolute;
+            z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -50,6 +51,7 @@
         }
 
         .goToCatalog {
+            z-index: 3;
             user-select: none;
             display: grid;
             align-content: center;

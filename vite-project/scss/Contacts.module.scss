@@ -10,6 +10,7 @@
 .contactsWrapper {
     font-family: 'Montserrat';
     padding: 20px 25px 34px 25px;
+    min-height: calc(100vh - 63px - 54px);
 
     .mapWrapper {
         padding: 15px 15px 12px 15px;
@@ -113,6 +114,7 @@
     }
 
     .backToMain {
+        user-select: none;
         display: grid;
         align-content: center;
         justify-content: center;
@@ -126,6 +128,13 @@
         background-color: $almostBlack;
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
         border-radius: 15px;
+        transition: .4s;
+        transform: scale(1);
+
+        &:active {
+            transition: .4s;
+            transform: scale(0.95);
+        }
     }
 
 }

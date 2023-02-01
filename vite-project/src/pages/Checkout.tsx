@@ -53,8 +53,6 @@ export function Checkout() {
         newCartItems = [{ "id": instantBuy.split("$")[0], "quantity": +instantBuy.split("$")[1] }]
     }
 
-
-
     useEffect(() => {
         async function changePriceCurrency() {
             if (lang === 'en') return
@@ -83,7 +81,8 @@ export function Checkout() {
         let total = 0
         for (let index = 0; index < newCartItems.length; index++) {
             const product_data: GoodData = goods_data[newCartItems[index].id as keyof typeof goods_data]
-            total += (+product_data.price.split('$')[1] * newCartItems[index].quantity) * currencyMultiplier
+            const price = product_data.price === "" ? 10.99 : +product_data.price.split('$')[1]
+            total += (price * newCartItems[index].quantity) * currencyMultiplier
         }
         total += deliveryMethod === deliveryOptionPickupChecker ? 0 * currencyMultiplier : 10.99 * currencyMultiplier
         setTotalPrice(+total.toFixed(2))
@@ -179,7 +178,6 @@ export function Checkout() {
         navigate(`/order?no=${orderNumber}`);
         setSection("QPICK")
     }
-
 
     return (
         <div className={classes.container}>

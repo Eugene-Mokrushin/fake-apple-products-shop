@@ -12,11 +12,11 @@ import { Checkout } from './pages/Checkout';
 import { OrderCreated } from './pages/OrderCreated';
 
 function App() {
-    const { isMenuOpen, closeMenu } = useMobileAndLang()
+    const { isMenuOpen, closeMenu, isMobile } = useMobileAndLang()
     return (
         <>
             <Navbar />
-            {isMenuOpen && <div className="cover" onClick={() => closeMenu()}></div>}
+            {isMenuOpen && isMobile && <div className="cover" onClick={() => closeMenu()}></div>}
             <div className='conteiner'>
                 <Routes>
                     <Route path='/' element={<Home />} />

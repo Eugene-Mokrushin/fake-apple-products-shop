@@ -205,7 +205,7 @@ export function StoreItem() {
                     onClick={(e) => handleClickFav(e, asin)}
                 />
                 <div className={classes.mainImgs}>
-                    <Swiper onSlideChangeTransitionEnd={() => { highlightDemoImg(); revealPaginator() }} id="swiper" pagination={true} modules={[Pagination]} spaceBetween={5} className={`${classes.allImagesWrapper} mySwiper`}>
+                    <Swiper onSlideChangeTransitionEnd={() => { highlightDemoImg(); revealPaginator() }} id="swiper" pagination={true} modules={[Pagination]} spaceBetween={5} className={`${classes.allImagesWrapper} mySwiper allImagesWrapper`}>
                         {bigImages}
                     </Swiper>
                 </div>

@@ -20,5 +20,11 @@
             "Прозрачные",
             "С картхолдером"
         ]
-    }
+    },
+    "subrubrics_search": [
+        "leather case",
+        "silicone case",
+        "transparent case",
+        "case with card holder"
+    ]
 }

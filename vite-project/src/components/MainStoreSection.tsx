@@ -16,8 +16,8 @@ type GoodData = {
     "rating": string,
     "review": string,
     "feature": string[],
-    "specific_name": string[],
-    "specific_value": string[],
+    "specific_name": string[] | string,
+    "specific_value": string[] | string,
     "description": string,
     "images_url": string[]
 }
@@ -28,12 +28,12 @@ type MainStoreSectionProps = {
 }
 
 
-const MainStoreSection = React.memo(({ data, header }: MainStoreSectionProps) => {
+export function MainStoreSection({ data, header }: MainStoreSectionProps) {
     const navigate = useNavigate()
     const { lang, isMobile } = useMobileAndLang()
     const { favItems, addRemoveItemToFav } = useShoppingCart()
     const counterRef = useRef<HTMLDivElement>(null)
-
+    const [cardsState, setCardsState] = useState<JSX.Element[]>()
     const re_img = /_AC_S[A-Z]\d*_/g
     const [currencyMultiplier, setCurrencyMultiplier] = useState<number>(1)
 
@@ -51,7 +51,7 @@ const MainStoreSection = React.memo(({ data, header }: MainStoreSectionProps) =>
             setCurrencyMultiplier(multiplier)
         }
         changePriceCurrency()
-    }, [])
+    }, [lang])
 
     function handleClickFav(e: React.MouseEvent<HTMLImageElement, MouseEvent>, id: string) {
         addRemoveItemToFav(id);
@@ -68,40 +68,48 @@ const MainStoreSection = React.memo(({ data, header }: MainStoreSectionProps) =>
         navigate(path);
     }
 
+    const allCards = useMemo(() => {
+        return generateCards()
+    }, [lang, currencyMultiplier])
 
-    const allCards = data.map((item, index) => {
-        const small_link_img = String(item.images_url[0]).replace(re_img, "_AC_SX300_")
-        const small_card_title = item.title.split(' ').slice(0, 5).join(' ')
-        const realPrice = item.price ? item.price : '$10'
-        const price = lang === "en" ? realPrice : (+realPrice.split("$")[1] * currencyMultiplier).toFixed(2) + "₽"
-        const favItems1 = favItems
-        if (index > 10) return
-        return (
-            <SwiperSlide key={crypto.randomUUID()}>
-                <div className={`${classes.card} card`} id={String(index + 1)} key={index} onClick={(e) => handleOpenGood(e, item.asin)}>
-                    <img src={favItems1.includes(item.asin) ? './imgs/heart_filled.svg' : './imgs/heart.svg'}
-                        alt='added to favorite'
-                        data-active={favItems1.includes(item.asin) ? true : false}
-                        id={item.asin}
-                        className={`${classes.favIco} favIco`}
-                        onClick={(e) => handleClickFav(e, item.asin)}
-                    />
-                    <img src={small_link_img} alt="Good preview" className={classes.imgPreview} />
-                    <div className={classes.titleAndPrice}>
-                        <h5 className={classes.title}>{small_card_title}</h5>
-                        <p className={classes.price}>{price}</p>
-                    </div>
-                </div>
-            </SwiperSlide>
-        )
-    }).filter(val => val !== undefined)
+    useEffect(() => {
+        if (!counterRef.current) return
+        counterRef.current.innerHTML = `${1}${lang === "en" ? ' out of ' : ' из '}${data.length}`
+    }, [lang])
 
 
     function handleCounter(e: { realIndex: string | number; }) {
         if (!counterRef.current) return
-        counterRef.current.innerHTML = `${+e.realIndex + 1}${lang === "en" ? ' out of ' : ' из '}${allCards.length}`
+        counterRef.current.innerHTML = `${+e.realIndex + 1}${lang === "en" ? ' out of ' : ' из '}${data.length}`
     }
-
+    function generateCards() {
+        let generatedCards = data.map((item, index) => {
+            const small_link_img = String(item.images_url[0]).replace(re_img, "_AC_SX300_")
+            const small_card_title = item.title.split(' ').slice(0, 5).join(' ')
+            const realPrice = item.price ? item.price : '$10'
+            const price = lang === "en" ? realPrice : (+realPrice.split("$")[1] * currencyMultiplier).toFixed(2) + "₽"
+            const favItems1 = favItems
+            return (
+                <SwiperSlide key={crypto.randomUUID()}>
+                    <div className={`${classes.card} card`} id={String(index + 1)} key={index} onClick={(e) => handleOpenGood(e, item.asin)}>
+                        <img src={favItems1.includes(item.asin) ? './imgs/heart_filled.svg' : './imgs/heart.svg'}
+                            alt='added to favorite'
+                            data-active={favItems1.includes(item.asin) ? true : false}
+                            id={item.asin}
+                            className={`${classes.favIco} favIco`}
+                            onClick={(e) => handleClickFav(e, item.asin)}
+                        />
+                        <img src={small_link_img} alt="Good preview" className={classes.imgPreview} />
+                        <div className={classes.titleAndPrice}>
+                            <h5 className={classes.title}>{small_card_title}</h5>
+                            <p className={classes.price}>{price}</p>
+                        </div>
+                    </div>
+                </SwiperSlide>
+            )
+        }).filter(val => val !== undefined)
+        setCardsState(generatedCards)
+    }
 
     return (
         <div className={classes.sectionWrapper}>
@@ -112,26 +120,22 @@ const MainStoreSection = React.memo(({ data, header }: MainStoreSectionProps) =>
             <div className={classes.cardsWrapper}>
                 <Swiper
                     spaceBetween={20}
-                    onSlideChangeTransitionEnd={(e: SwiperEvents) => handleCounter(e)}
+                    onSlideChangeTransitionEnd={(e) => handleCounter(e)}
                     centeredSlides={true}
                     slidesPerView={"auto"}
                     loop={true}
-                    updateOnWindowResize={false}
-                    updateOnImagesReady={false}
                     autoplay={{
-                        delay: 3000,
+                        delay: 5000 * Math.random() * 30,
                         disableOnInteraction: true,
                     }}
                     modules={[Autoplay]}
                     className={`${classes.mySwiperSection} ${isMobile ? "mobileSwiperSection" : ""} mySwiperSection`}
                 >
-                    {allCards}
+                    {cardsState ? cardsState : <SwiperSlide>Loading ...</SwiperSlide>}
                 </Swiper>
             </div>
         </div>
     )
-}, (prevProps, nextProps) => {
-    return false;
-});
+}
 
-export default MainStoreSection
+

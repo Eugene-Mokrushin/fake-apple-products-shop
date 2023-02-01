@@ -25,7 +25,7 @@
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
             border-radius: 30px;
             max-height: 410px;
-            max-width: 380px;
+            max-width: calc(100% - 50px);
             width: 330px;
             height: 460px;
             padding: 25px;
@@ -90,6 +90,7 @@
                 justify-content: space-between;
 
                 .title {
+                    overflow: hidden;
                     font-style: normal;
                     font-weight: weight(semi-bold);
                     font-size: 17px;

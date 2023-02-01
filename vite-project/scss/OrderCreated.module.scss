@@ -16,7 +16,10 @@
     min-height: calc(100vh - 63px);
 
     .info {
+        max-width: 350px;
+        padding: 0 25px;
         user-select: none;
+        margin: 0 auto;
         margin-top: 73px;
         display: flex;
         flex-direction: column;

@@ -35,8 +35,8 @@
             z-index: 10;
             transform: scale(1.3);
             position: absolute;
-            left: 86%;
-            top: 4%;
+            right: 5%;
+            top: 20px;
             background-color: #FFFFFF;
             padding: 5px;
             border-bottom-left-radius: 50%;
@@ -49,6 +49,8 @@
             padding-bottom: 5px;
 
             .bigImg {
+                margin-left: auto;
+                max-height: 50vh;
                 max-width: 100%;
                 aspect-ratio: 1/1;
                 object-fit: contain;

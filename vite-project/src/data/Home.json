@@ -9,7 +9,7 @@
     },
     "lightning": {
         "en": "Headphones - lightning",
-        "ru": "Наушники - lightning"
+        "ru": "Наушники - лайтнинг"
     },
     "jack": {
         "ru": "Наушники - 3.5 (jack)",
@@ -22,5 +22,19 @@
     "headset": {
         "en": "Overear headphones",
         "ru": "Накладные наушники"
+    },
+    "smallNames": {
+        "jack": {
+            "en": "Jack (3.5)",
+            "ru": "Джек (3.5)"
+        },
+        "ligh": {
+            "en": "Lightning",
+            "ru": "Лайтнинг"
+        },
+        "set": {
+            "en": "Overear",
+            "ru": "Накладные"
+        }
     }
 }

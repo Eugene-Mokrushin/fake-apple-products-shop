@@ -31,18 +31,22 @@
     }
 
     .selfWrapper {
+        overflow: hidden;
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
         position: relative;
         background-color: transparent;
         max-height: 150px;
         border-radius: 10px;
-
+        a {
+            max-height: 100%;
+        }
         img {
             border-radius: 10px;
             max-width: 100%;
             min-width: 100%;
-            object-fit: cover;
+            max-height: 100%;
+            object-fit: contain;
         }
     }
 
@@ -172,6 +176,7 @@
 
             .house {
                 width: 40%;
+                max-width: 40%;
                 outline: none;
                 border: none;
                 border-radius: 15px;
@@ -201,6 +206,7 @@
 
             .houseAdd {
                 width: 40%;
+                max-width: 40%;
                 outline: none;
                 border: none;
                 border-radius: 15px;
@@ -236,6 +242,7 @@
 
             .floor {
                 width: 40%;
+                max-width: 40%;
                 outline: none;
                 border: none;
                 border-radius: 15px;
@@ -265,6 +272,7 @@
 
             .apartment {
                 width: 40%;
+                max-width: 40%;
                 outline: none;
                 border: none;
                 border-radius: 15px;

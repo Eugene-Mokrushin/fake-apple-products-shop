@@ -12,14 +12,21 @@
     .titleSectionAndCounter {
         width: 90%;
         margin: 0 auto;
+        max-height: 24px;
+        height: 24px;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
+        .storeTitle {
+            font-size: 17px !important;
+            
+        }
+
         .sectionTitle {
             font-style: normal;
             font-weight: weight(semi-bold);
-            font-size: 20px;
+            font-size: 17px;
             line-height: 24px;
             color: $greyColor;
         }
@@ -51,12 +58,9 @@
             background: #FFFFFF;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
             border-radius: 30px;
-            // width: 330px;
-            max-width: 60vw;
+            max-width: 80vw !important;
             min-height: 313px;
-            // max-height: 313px;
-            // height: 460px;
-            // max-width: 370px;
+            max-height: 313px;
             margin: 0 auto;
             padding: 25px;
             display: flex;
