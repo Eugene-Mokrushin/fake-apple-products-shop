@@ -42,6 +42,26 @@ export function Favorites() {
         document.querySelector(`#${id}`)?.querySelector('.swiper-pagination')?.classList.add('visiblePaginator')
     }
 
+    function handleParallax(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        const width = e.currentTarget.getBoundingClientRect().width
+        const height = e.currentTarget.getBoundingClientRect().height
+        if ((e.target as Element).classList.contains('favIco')) e.currentTarget.classList.add('is-out')
+        if (!(e.target as Element).classList.contains('favIco')) e.currentTarget.classList.remove('is-out')
+        const perspective = '800px',
+            delta = 30,
+            midWidth = width / 2,
+            midHeight = height / 2;
+        const mouseCoord = {
+            x: e.nativeEvent.offsetX,
+            y: e.nativeEvent.offsetY
+        };
+        const cursCenterX = midWidth - mouseCoord.x,
+            cursCenterY = midHeight - mouseCoord.y;
+
+        e.currentTarget.style.transform = 'perspective(' + perspective + ') rotateX(' + (cursCenterY / delta) + 'deg) rotateY(' + -(cursCenterX / delta) + 'deg) translateY(0)';
+        (e.currentTarget.childNodes[1] as HTMLElement).style.transform = 'perspective(' + perspective + ') rotateX(' + -(cursCenterY / delta) + 'deg) rotateY(' + (cursCenterX / delta) + 'deg) translateZ(10px)';
+    }
+
     useEffect(() => {
         async function createCards() {
             async function getRub() {
@@ -55,7 +75,7 @@ export function Favorites() {
 
             const cards_data = favItems.map((id: string, index: number) => {
                 const card_data = goods[id as keyof typeof goods]
-                const small_card_title = (card_data['title'] as string).split(' ').slice(0, 6).join(' ')
+                const small_card_title = (card_data['title'] as string).split(' ').slice(0, 4).join(' ')
                 const realPrice = card_data['price'] ? card_data['price'] : '$10'
                 const price = lang === "en" ? realPrice : (+realPrice.split("$")[1] * currencyMultiplier).toFixed(2) + "₽"
 

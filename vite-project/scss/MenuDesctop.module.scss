@@ -1,0 +1,159 @@
+@import './variables';
+
+@function weight($weigh-name) {
+    @return map-get($map: $font-weights, $key: $weigh-name)
+}
+
+;
+
+
+.menu {
+    margin-left: 75px;
+    position: relative;
+    height: 100%;
+}
+
+.menuItem {
+    user-select: none;
+    cursor: pointer;
+    display: grid;
+    // min-width: 255px;
+    height: 100%;
+    align-content: center;
+    // justify-content: center;
+    margin-left: 16px;
+}
+
+.menuWrapper {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    gap: 10px;
+
+    .menuItemTitle {
+        position: relative;
+        font-style: normal;
+        font-weight: weight(medium);
+        font-size: 15px;
+        line-height: 18px;
+        color: $almostBlack;
+
+        &::after {
+            position: absolute;
+            right: -14.5px;
+            top: -2px;
+        }
+
+    }
+
+    .menuItemTitle[data-active="true"] {
+        &::after {
+            content: url(./imgs/tickUp.svg);
+        }
+    }
+    .menuItemTitle[data-active="false"] {
+        &::after {
+            content: url(./imgs/tickDown.svg);
+        }
+    }
+}
+
+.models {
+    position: absolute;
+    z-index: 98;
+    top: 100%;
+    min-width: 255px;
+    padding-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: height .5s;
+    margin-top: -17px;
+
+    background: $bgGreyishWhite;
+    box-shadow: 0px 20px 20px rgb(0 0 0 / 10%);
+    border-radius: 0px 0px 30px 30px;
+
+    .model {
+        margin-top: 10px;
+        flex-direction: column;
+
+        .allModelBrand {
+            margin-left: 52px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .brandName {
+            user-select: none;
+            cursor: pointer;
+            width: fit-content;
+            position: relative;
+            margin-left: 42px;
+            font-style: normal;
+            font-weight: weight(medium);
+            font-size: 15px;
+            line-height: 18px;
+        }
+
+        .modelName {
+            user-select: none;
+            cursor: pointer;
+            font-weight: weight(medium);
+            font-size: 15px;
+        }
+
+        .pickedModelName {
+            color: $orangeColor;
+        }
+
+        .brandName::before {
+            position: absolute;
+            left: -14.5px;
+            top: -2px;
+        }
+
+        .brandName[data-brandactive="true"]::before {
+            content: url(./imgs/tickUp.svg);
+        }
+
+        .brandName[data-brandactive="false"]::before {
+            content: url(./imgs/tickDown.svg);
+        }
+
+        .modelName[data-brandactive="false"] {
+            display: none;
+        }
+    }
+
+    .model[data-brandactive="false"] h4::before {
+        content: url(./imgs/tickDown.svg);
+    }
+
+    .model[data-brandactive="true"] h4::before {
+        content: url(./imgs/tickUp.svg);
+    }
+
+    .model[data-brandactive="false"] .allModelBrand {
+        display: none;
+    }
+
+}
+
+.models[data-active="true"] {
+    display: block;
+    height: fit-content;
+    max-height: 700px;
+}
+
+.models[data-active="false"] {
+    display: none;
+    height: 0px;
+    max-height: 0px;
+}
+
+.model[data-brandactive="true"] {
+    display: block;
+}

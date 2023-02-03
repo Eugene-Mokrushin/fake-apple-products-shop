@@ -108,3 +108,29 @@
         display: none;
     }
 }
+
+.desctopHomeWrapper {
+    padding-bottom: 0px !important;
+}
+
+.desctopCabelType {
+    div {
+        cursor: pointer;
+    }
+
+    max-width: 500px !important;
+}
+
+@keyframes scrollerUp {
+    0% {
+        transform: translateY(0px) scale(-1);
+    }
+
+    50% {
+        transform: translateY(-5px) scale(-1);
+    }
+
+    100% {
+        transform: translateY(0px) scale(-1);
+    }
+}

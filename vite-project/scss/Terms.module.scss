@@ -12,6 +12,8 @@
     min-height: calc(100vh - 63px - 36px);
 
     .termWrapper {
+        max-width: 1000px;
+        margin: 0 auto;
         margin-bottom: 20px;
         padding: 15px 15px 30px 15px;
         background: white;

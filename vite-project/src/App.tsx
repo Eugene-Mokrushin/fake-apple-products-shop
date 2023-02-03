@@ -10,9 +10,25 @@ import { StoreItem } from './pages/StoreItem';
 import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { OrderCreated } from './pages/OrderCreated';
+import Footer from './components/Footer';
+import { useEffect, useRef } from 'react';
 
 function App() {
     const { isMenuOpen, closeMenu, isMobile } = useMobileAndLang()
+    const scrollUpRef = useRef(null)
+
+    useEffect(() => {
+        if (scrollUpRef.current && !isMobile) {
+            window.addEventListener('scroll', (e) => {
+                if (window.scrollY > 300 && scrollUpRef.current) {
+                    (scrollUpRef.current as HTMLElement).classList.add('scrolledEnough')
+                } else if (window.screenY <= 300 && scrollUpRef.current) {
+                    (scrollUpRef.current as HTMLElement).classList.remove('scrolledEnough')
+                }
+            })
+        }
+    }, [])
+
     return (
         <>
             <Navbar />
@@ -29,6 +45,9 @@ function App() {
                     <Route path='/checkout' element={<Checkout />} />
                     <Route path='/order' element={<OrderCreated />} />
                 </Routes>
+                {!isMobile && <div className={"scrollUp"} ref={scrollUpRef} onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}>
+                    <img src="./imgs/upScroll.svg" alt="scrollUp" /> </div>}
+                {!isMobile && <Footer />}
             </div>
         </>
     )

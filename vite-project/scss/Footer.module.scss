@@ -1,0 +1,118 @@
+@import './variables';
+
+@function weight($weigh-name) {
+    @return map-get($map: $font-weights, $key: $weigh-name)
+}
+
+;
+
+.footerWrapper {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px 30px 0px 0px;
+    padding: 30px 30px 0 30px;
+    font-family: 'Montserrat';
+    height: 130px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: auto;
+
+    display: flex;
+    justify-content: space-between;
+
+    .logo {
+        cursor: pointer;
+        font-style: normal;
+        font-weight: weight(bold);
+        font-size: 25px;
+        line-height: 30px;
+        color: $almostBlack;
+    }
+
+    .cta1 {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        list-style-type: none;
+
+        .ctaItem {
+            cursor: pointer;
+            font-style: normal;
+            font-weight: weight(thin);
+            font-size: 17px;
+            line-height: 21px;
+            color: $absBlack;
+            transition: color .3s;
+
+            &:hover {
+                color: $orangeColor;
+                transition: color .3s;
+            }
+        }
+    }
+
+    .cta2 {
+        .terms {
+            cursor: pointer;
+            font-style: normal;
+            font-weight: weight(thin);
+            font-size: 17px;
+            line-height: 21px;
+            color: $absBlack;
+            transition: color .3s;
+
+            &:hover {
+                color: $orangeColor;
+                transition: color .3s;
+            }
+        }
+
+        .langsWrapper {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+
+            .globe {
+                max-height: 18px;
+            }
+
+            .lang {
+                cursor: pointer;
+                font-style: normal;
+                font-weight: weight(medium);
+                font-size: 15px;
+                line-height: 18px;
+                color: $almostBlack;
+
+                transition: color .3s;
+                &:hover {
+                    color: $orangeColor;
+                    transition: color .3s;
+                }
+            }
+
+            .selected {
+                color: $orangeColor;
+                font-weight: weight(semi-bold);
+            }
+        }
+    }
+
+    .socialNetworks {
+        display: flex;
+        a {
+            max-height: 30px;
+        }
+        svg {
+            cursor: pointer;
+            max-height: 30px;
+            min-height: 30px;
+            transition: transform .3s;
+
+            &:hover {
+                transition: transform .3s;
+                transform: scale(1.05);
+            }
+        }
+    }
+}

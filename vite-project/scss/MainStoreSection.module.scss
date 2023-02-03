@@ -19,8 +19,8 @@
         align-items: center;
 
         .storeTitle {
-            font-size: 17px !important;
-            
+            font-size: 17px;
+
         }
 
         .sectionTitle {
@@ -41,6 +41,194 @@
             color: $greyColor;
         }
 
+    }
+
+    .desctopTitleSectionAndCounter {
+        .sectionTitle {
+            font-size: 25px !important;
+
+        }
+    }
+
+    .cardsWrapperDesctopOpened {
+        max-height: 15000px !important;
+        transition: .6s !important;
+        .opener {
+            display: none !important;
+        }
+    }
+
+    .cardsWrapperDesctop {
+        width: 90%;
+        column-gap: 30px;
+        row-gap: 30px;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        max-height: 800px;
+        overflow-y: hidden;
+        padding-top: 20px;
+        transition: .6s;
+        display: flex;
+        position: relative;
+        justify-content: space-around;
+
+        .opener {
+            display: grid;
+            align-content: center;
+            justify-content: center;
+            bottom: 0;
+            width: 100%;
+            height: 200px;
+            position: absolute;
+            background: rgb(177, 121, 121);
+            background: linear-gradient(0deg, rgb(234, 234, 234) 50%, rgba(255, 255, 255, 0) 100%);
+
+            .moreWrapper {
+                height: 100%;
+                cursor: pointer;
+                position: relative;
+
+                .more {
+                    min-height: 100%;
+                    font-style: normal;
+                    font-weight: weight(medium);
+                    font-size: 25px;
+                    line-height: 18px;
+                }
+
+                svg {
+                    position: absolute;
+                    left: 50%;
+                    transform: translateY(-10px) translateX(-50%);
+                }
+
+                .second {
+                    transform: translateY(0px) translateX(-50%);
+                }
+
+                &:hover {
+                    .first {
+                        animation: showMore1 .3s .1s cubic-bezier(.45, .3, .32, .93) forwards;
+                    }
+
+                    .second {
+                        animation: showMore2 .5s cubic-bezier(.45, .3, .32, .93) forwards;
+                    }
+
+                }
+            }
+
+        }
+
+        .card {
+            cursor: pointer;
+            user-select: none;
+            aspect-ratio: 1/1 !important;
+            position: relative;
+            background: #FFFFFF;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            max-width: 80vw !important;
+            min-height: 313px;
+            max-height: 313px;
+            padding: 25px;
+            display: flex;
+            // opacity: 0;
+            justify-content: space-between;
+            flex-direction: column;
+            transform: rotateX(0) rotateY(0);
+            transform-style: preserve-3d;
+            transition: transform 0.1s linear;
+            backface-visibility: hidden;
+            will-change: tranform;
+
+            &:hover {
+                .imgPreview:after {
+                    content: "";
+                    height: 40px;
+                    width: 40px;
+                    left: 80px;
+                    top: 80px;
+                    position: absolute;
+                    border-radius: 50%;
+                    box-shadow: 0 0px 8px 8px #aaa;
+                    background-color: #aaa;
+                    display: block;
+                    transform: translateZ(10px);
+                }
+            }
+
+
+            .coverHover {
+                z-index: 9;
+                top: 0;
+                left: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+
+            .favIco {
+                // pointer-events: none;
+                z-index: 10;
+                transform: scale(1.3);
+                position: absolute;
+                transform: rotateX(0) rotateY(0);
+                transform-style: preserve-3d;
+                transition: transform 0.1s linear;
+                backface-visibility: hidden;
+                will-change: tranform;
+                left: 87%;
+                top: 7%;
+
+                &:hover {
+                    transition: transform .3s;
+                    transform: scale(1.5) !important;
+                }
+            }
+
+            .imgPreview {
+                position: absolute;
+                max-height: 60%;
+                left: 50%;
+                // top: 50%;
+                transform: translate(-50%) translateZ(50px);
+                aspect-ratio: 1/1;
+                object-fit: contain;
+                transition: 0.3s ease-out;
+            }
+
+            .titleAndPrice {
+                margin-top: auto;
+                overflow: hidden;
+                max-height: 20%;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+
+                .title {
+                    font-style: normal;
+                    font-weight: weight(semi-bold);
+                    font-size: 17px;
+                    line-height: 21px;
+                    width: 50%;
+                    color: $blueishBlack;
+                    text-overflow: ellipsis;
+                }
+
+                .price {
+                    display: grid;
+                    align-content: center;
+                    justify-content: center;
+                    font-style: normal;
+                    font-weight: weight(semi-bold);
+                    font-size: 17px;
+                    line-height: 21px;
+                    text-align: right;
+                    color: $orangeColor;
+                }
+            }
+        }
     }
 
     .cardsWrapper {
@@ -113,4 +301,32 @@
         }
     }
 
+}
+
+@keyframes showMore1 {
+    0% {
+        transform: translateY(-10px) translateX(-50%);
+    }
+
+    50% {
+        transform: translateY(0px) translateX(-50%);
+    }
+
+    100% {
+        transform: translateY(-10px) translateX(-50%);
+    }
+}
+
+@keyframes showMore2 {
+    0% {
+        transform: translateY(0px) translateX(-50%);
+    }
+
+    50% {
+        transform: translateY(10px) translateX(-50%);
+    }
+
+    100% {
+        transform: translateY(0px) translateX(-50%);
+    }
 }

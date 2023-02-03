@@ -18,6 +18,13 @@ body {
     position: relative;
 }
 
+.conteiner {
+    min-height: calc(100vh - 63px);
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+}
+
 .cover {
     z-index: 11;
     position: fixed;
@@ -46,6 +53,7 @@ body {
         width: auto !important;
     }
 }
+
 .mobileSwiperSection {
     .swiper-slide-prev {
         opacity: 1 !important;
@@ -54,6 +62,7 @@ body {
         transition: transform .5s, opacity 1s;
         transform: scale(0.9) translateX(60px) !important;
     }
+
     .swiper-slide-active {
         opacity: 1 !important;
         transform: scale(1) translateX(0px) !important;
@@ -61,6 +70,7 @@ body {
         z-index: 2;
 
     }
+
     .swiper-slide-next {
         opacity: 1 !important;
         z-index: 1;
@@ -86,6 +96,11 @@ body {
     }
 }
 
+.is-out {
+    transform: rotateX(0) rotateY(0) !important;
+    transition-duration: 1s;
+}
+
 .swiper-slide {
     width: 100% !important;
     min-height: 100%;
@@ -105,10 +120,50 @@ body {
 }
 
 .selected::after {
-    // outline: 2px solid $orangeColor;  
     opacity: 1 !important;
     transition: opacity .2s;
+}
 
+.scrolledEnough {
+    opacity: 1 !important;
+    transition: opacity .4s !important;
+    pointer-events: all !important;
+}
+
+.scrollUp {
+    opacity: 0;
+    transition: opacity .4s;
+    pointer-events: none;
+    cursor: pointer;
+    display: grid;
+    position: fixed;
+    align-content: center;
+    justify-content: center;
+    bottom: 0;
+    right: 0;
+    margin-right: 10px;
+    margin-bottom: 50px;
+    background-color: #FFCE7F;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    width: 70px;
+    height: 70px;
+
+    img {
+        transform: scale(-1);
+        fill: #fff;
+    }
+
+    &:hover {
+        img {
+            animation: scrollerUp .8s cubic-bezier(.45, .3, .32, .93) forwards;
+        }
+    }
+}
+
+.shownCard {
+    opacity: 1 !important;
+    transition: opacity .5s, transform 0.1s linear !important;
 }
 
 #swiper {

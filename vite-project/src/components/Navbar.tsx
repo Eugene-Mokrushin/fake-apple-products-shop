@@ -4,6 +4,7 @@ import { useSelectedSection } from '../context/IsSectionSelectedContext'
 import { useShoppingCart } from '../context/ShoppingCartContext'
 import { MenuMobile } from './MenuMobile'
 import classes from '../../scss/Navbar.module.scss'
+import { MenuDesctop } from './MenuDesctop'
 
 export function Navbar() {
     const { cartQuantity, favItems } = useShoppingCart()
@@ -14,6 +15,8 @@ export function Navbar() {
         <>
             <div className={`${isMobile ? classes.mobile : classes.desctop} ${classes.navWrapper}`}>
                 <Link to={'/'} className={`${classes.logoBack} ${section === "QPICK" ? classes.logo : classes.back}`} onClick={() => { setSection('QPICK'); closeMenu() }}>{section}</Link>
+                {!isMobile && <MenuDesctop />}
+                
                 <div className={classes.wrapMenuAndCarts}>
                     {favItems.length > 0 &&
                         <div className={classes.favAndQuantity}>

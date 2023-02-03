@@ -14,5 +14,9 @@
     "contacts": {
         "en": "Contacts",
         "ru": "Контакты"
+    },
+    "cart": {
+        "en": "Cart",
+        "ru": "Корзина"
     }
 }
