@@ -95,11 +95,11 @@
                 display: grid;
                 align-content: center;
                 justify-content: center;
+                position: relative;
                 width: 30px;
                 height: 30px;
                 border-radius: 50%;
                 background-color: $orangeLight;
-
                 font-size: 30px;
                 font-weight: weight(thin);
             }
@@ -146,6 +146,7 @@
                 transition: transform .3s;
                 transform: scale(1.2);
             }
+
             &:active {
                 transition: transform .4s;
                 transform: scale(0.9);
@@ -169,7 +170,7 @@
             }
 
             .titlePrice {
-                margin-left: 13px;
+                margin-left: 23px;
 
                 .titleItem {
                     font-style: normal;
@@ -230,6 +231,38 @@
                     font-size: 30px;
                     font-weight: weight(thin);
                     transition: transform .4s;
+
+                    &::after {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        transform: scale(0) translateX(-14%) translateY(-14%);
+                        width: 40px;
+                        height: 40px;
+                        border: 1px solid $orangeLight;
+                        transition: transform .3s;
+                        border-radius: 50%;
+                    }
+
+                    &:hover::after {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        width: 40px;
+                        height: 40px;
+                        border: 1px solid $orangeLight;
+                        transition: transform .3s;
+                        transform: scale(1) translateX(-14%) translateY(-14%);
+                    }
+
                     &:active {
                         transition: transform .4s;
                         transform: scale(1.1);

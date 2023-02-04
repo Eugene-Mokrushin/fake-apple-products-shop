@@ -24,5 +24,9 @@
     "insta_buy": {
         "en": "Buy now!",
         "ru": "В один клик"
+    },
+    "buy_action": {
+        "en": "Add to cart",
+        "ru": "Добавить в корзину"
     }
 }

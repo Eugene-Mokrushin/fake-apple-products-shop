@@ -26,7 +26,11 @@ body {
     display: flex;
     justify-content: space-between;
 }
-
+.imgMagnificator {
+    object-fit: contain;
+    margin: auto;
+    max-height: 100%;
+}
 .cover {
     z-index: 11;
     position: fixed;

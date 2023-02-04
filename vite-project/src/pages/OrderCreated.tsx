@@ -10,7 +10,7 @@ export function OrderCreated() {
     const navigate = useNavigate();
     const [searchParam] = useSearchParams()
     const orderNo = searchParam.get("no") || ""
-    const { lang, closeMenu } = useMobileAndLang()
+    const { lang, closeMenu, isMobile } = useMobileAndLang()
 
 
     const info = data.info[lang as keyof typeof data.info]
@@ -29,7 +29,7 @@ export function OrderCreated() {
     }, [])
 
     return (
-        <div className={classes.orderCreatedWrapper}>
+        <div className={isMobile ? classes.orderCreatedWrapper : classes.orderCreatedWrapperDesctop}>
             <div className={classes.info}>{infoBlocks}</div>
             <div className={classes.btn} onClick={() => {navigate('/'); closeMenu()}}>{btn}</div>
         </div>

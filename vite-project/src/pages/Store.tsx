@@ -15,39 +15,36 @@ import { StoreSwiper } from '../components/StoreSwiper'
 
 export function Store() {
     const { lang, isMobile } = useMobileAndLang()
-    const { favItems, addRemoveItemToFav } = useShoppingCart()
-    const navigate = useNavigate();
-    const re_img = /_AC_S[A-Z]\d*_/g
 
     const [searchParam] = useSearchParams()
     const model = searchParam.get("model") || ""
     const brand = searchParam.get("brand") || ""
-
     const wiget_title = store_data.wiget[lang as keyof typeof store_data.wiget]
     const rubrics_titles = store_data.rubrics[lang as keyof typeof store_data.rubrics]
     const subrubrics_titles = store_data.subrubrics[lang as keyof typeof store_data.subrubrics]
     const subrubrics_titles_en = store_data.subrubrics.en
     const subrubrics_search = store_data.subrubrics_search
     const [chosenRubric, setChosenRubric] = useState([rubrics_titles, subrubrics_titles[0], subrubrics_search[0]])
-    const [desctopData, setDesctopData] = useState(products_data[brand as keyof typeof products_data][model][chosenRubric[2]])
+    const [flag, setFlag] = useState(false)
 
     function pickRoubrick(subrubric: string): void {
         const idSubrubric = subrubrics_titles_en.indexOf(subrubric)
         setChosenRubric([rubrics_titles, subrubrics_titles[idSubrubric], subrubrics_search[idSubrubric]])
-        if (isMobile) {
-            setDesctopData(products_data[brand as keyof typeof products_data][model][subrubric])
-        }
+        setFlag(prev => !prev)
     }
 
     let subrubricsWigets: Array<ReactNode> = []
     store_data.subrubrics.en.forEach((subrubric, index) => {
         subrubricsWigets.push(
-            <div className={`${classes.subrubric} subrucric`} data-i={index + 1} key={index} onClick={() => {pickRoubrick(subrubric)}}>
+            <div className={`${classes.subrubric} subrucric`} data-i={index + 1} key={index} onClick={() => { pickRoubrick(subrubric) }}>
                 <img src={`./rubrics/cases/${subrubric}.png`} alt="widget for subrubric" className={classes.wigetSubrubric} />
                 <span className={classes.title}>{subrubrics_titles[index]}</span>
             </div>
         )
     })
+    useEffect(() => {
+        setFlag(prev => !prev)
+    }, [model])
 
     useEffect(() => {
         if (isMobile) {
@@ -74,7 +71,7 @@ export function Store() {
             const rubricElems = document.querySelectorAll(".subrucric")
             rubricElems.forEach((el) => observer.observe(el))
         }
-    }, [isMobile])
+    }, [model])
 
     return (
         <div className={isMobile ? classes.storeWrapper : classes.storeWrapperDesktop + ' ' + 'storeWrapperDesktop'}>
@@ -93,7 +90,7 @@ export function Store() {
             </div>
             <div className={classes.subrubricChosen}>
                 {isMobile ? <StoreSwiper data={products_data[brand as keyof typeof products_data][model][chosenRubric[2]]} header={chosenRubric[0] + ' > ' + chosenRubric[1]} />
-                    : <MainStoreSection data={products_data[brand as keyof typeof products_data][model][chosenRubric[2]]}  header={chosenRubric[0] + ' > ' + chosenRubric[1]} />
+                    : <MainStoreSection data={products_data[brand as keyof typeof products_data][model][chosenRubric[2]]} header={chosenRubric[0] + ' > ' + chosenRubric[1]} flagStore={flag}/>
                 }
             </div>
         </div>

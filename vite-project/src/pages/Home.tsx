@@ -23,8 +23,12 @@ export function Home() {
     const smallLightning = home_data.smallNames.ligh[lang as keyof typeof home_data.smallNames.ligh]
     const smallHeadset = home_data.smallNames.set[lang as keyof typeof home_data.smallNames.set]
     const [cabelType, setCableType] = useState(lightinigCheker)
-    function handleCableType(type: string) {
+    const [flag, setFlag] = useState(false)
+
+    function handleCableType(type: string, val: string) {
         setCableType(type)
+        setFlag(prev => !prev)
+        
     }
 
     return (
@@ -35,28 +39,28 @@ export function Home() {
             </div>
             <MainStoreSection data={otherAccessories_data.headphones['wireless earbuds'].items} header={wireless} />
             <div className={`${classes.cabelType} ${!isMobile ? classes.desctopCabelType : ""}`}>
-                <div className={`${classes.wrapperType} ${cabelType === lightinigCheker ? classes.active : ''}`} onClick={() => handleCableType(lightinigCheker)} >
+                <div className={`${classes.wrapperType} ${cabelType === lightinigCheker ? classes.active : ''}`} onClick={() => handleCableType(lightinigCheker, 'headphones lightning')} >
                     <img src="./wigets/lightningWiget.png" alt="lightinig cables" />
                     <div className={classes.titleType}>{smallLightning}</div>
                 </div>
-                <div className={`${classes.wrapperType} ${cabelType === jackCheker ? classes.active : ''}`} onClick={() => handleCableType(jackCheker)} >
+                <div className={`${classes.wrapperType} ${cabelType === jackCheker ? classes.active : ''}`} onClick={() => handleCableType(jackCheker, "headphones 3.5mm")} >
                     <img src="./wigets/jackWiget.png" alt="jack cables" />
                     <div className={classes.titleType}>{smallJack}</div>
                 </div>
-                <div className={`${classes.wrapperType} ${cabelType === overearsChecker ? classes.active : ''}`} onClick={() => handleCableType(overearsChecker)}>
+                <div className={`${classes.wrapperType} ${cabelType === overearsChecker ? classes.active : ''}`} onClick={() => handleCableType(overearsChecker, "big headphones")}>
                     <img src="./wigets/overearWiget.png" alt="jack cables" />
                     <div className={classes.titleType}>{smallHeadset}</div>
                 </div>
 
             </div>
             <div className={`${cabelType === lightinigCheker ? classes.shown : classes.hidden}`}>
-                <MainStoreSection data={otherAccessories_data.headphones['headphones lightning'].items} header={lightinig} flagSelector={jackCheker} />
+                <MainStoreSection data={otherAccessories_data.headphones['headphones lightning'].items} header={lightinig} flagSelector={flag} />
             </div>
             <div className={`${cabelType === jackCheker ? classes.shown : classes.hidden}`}>
-                <MainStoreSection data={otherAccessories_data.headphones["headphones 3.5mm"].items} header={jack} flagSelector={jackCheker} />
+                <MainStoreSection data={otherAccessories_data.headphones["headphones 3.5mm"].items} header={jack} flagSelector={flag} />
             </div>
             <div className={`${cabelType === overearsChecker ? classes.shown : classes.hidden}`}>
-                <MainStoreSection data={otherAccessories_data.headphones["big headphones"].items} header={overears} flagSelector={jackCheker} />
+                <MainStoreSection data={otherAccessories_data.headphones["big headphones"].items} header={overears} flagSelector={flag} />
             </div>
             <MainStoreSection data={otherAccessories_data.headphones["power bank for phone"].items} header={powerbanks} />
         </div>

@@ -23,10 +23,11 @@ type GoodData = {
 type MainStoreSectionProps = {
     data: GoodData[],
     header: string,
-    flagSelector?: string
+    flagSelector?: boolean
+    flagStore?: boolean
 }
 
-export function MainStoreSection({ data, header, flagSelector = '' }: MainStoreSectionProps) {
+export function MainStoreSection({ data, header, flagSelector = false, flagStore = false }: MainStoreSectionProps) {
     const navigate = useNavigate()
     const { lang, isMobile } = useMobileAndLang()
     const { favItems, addRemoveItemToFav } = useShoppingCart()
@@ -83,12 +84,13 @@ export function MainStoreSection({ data, header, flagSelector = '' }: MainStoreS
     const allCards = useMemo(() => {
         if (isMobile) return generateCardsMobile()
         else return generateCardsDescktop()
-    }, [lang, currencyMultiplier, isMobile, header])
+    }, [lang, currencyMultiplier, isMobile, header, flagStore])
 
     useEffect(() => {
         if (!counterRef.current) return
-        counterRef.current.innerHTML = `${1}${lang === "en" ? ' out of ' : ' из '}${data.length}`
-    }, [lang])
+        const setter = +counterRef.current.innerHTML.split(' ')[0] > data.length ? 1 :  +counterRef.current.innerHTML.split(' ')[0]
+        counterRef.current.innerHTML = `${setter}${lang === "en" ? ' out of ' : ' из '}${data.length}`
+    }, [lang, flagSelector])
 
 
     function handleCounter(e: { realIndex: string | number; }) {
@@ -123,7 +125,7 @@ export function MainStoreSection({ data, header, flagSelector = '' }: MainStoreS
             const price = lang === "en" ? realPrice : (+realPrice.split("$")[1] * currencyMultiplier).toFixed(2) + "₽"
             const favItems1 = favItems
             return (
-                <div className={`${classes.card} is-out card ${flagSelector !== '' ? 'pickableSection' : ''}`} id={String(index + 1)} key={crypto.randomUUID()} onClick={(e) => handleOpenGood(e, item.asin)} onMouseMove={(e) => handleParallax(e)} onMouseLeave={(e) => { e.currentTarget.classList.add('is-out'); e.currentTarget.style.transform = ""; (e.currentTarget.childNodes[1] as HTMLElement).style.transform = '' }}>
+                <div className={`${classes.card} is-out card`} id={String(index + 1)} key={crypto.randomUUID()} onClick={(e) => handleOpenGood(e, item.asin)} onMouseMove={(e) => handleParallax(e)} onMouseLeave={(e) => { e.currentTarget.classList.add('is-out'); e.currentTarget.style.transform = ""; (e.currentTarget.childNodes[1] as HTMLElement).style.transform = '' }}>
                     <div className={classes.coverHover}></div>
                     <img src={favItems1.includes(item.asin) ? './imgs/heart_filled.svg' : './imgs/heart.svg'}
                         alt='added to favorite'
@@ -141,7 +143,6 @@ export function MainStoreSection({ data, header, flagSelector = '' }: MainStoreS
             )
         }).filter(val => val !== undefined)
         setCardsState(generatedCards)
-    
     }
     function generateCardsMobile() {
         let generatedCards = data.map((item, index) => {
@@ -175,7 +176,7 @@ export function MainStoreSection({ data, header, flagSelector = '' }: MainStoreS
         <div className={classes.sectionWrapper}>
             <div className={`${classes.titleSectionAndCounter} ${!isMobile ? classes.desctopTitleSectionAndCounter : ''}`}>
                 <div className={classes.sectionTitle}>{header}</div>
-                {isMobile && <div className={classes.counter} ref={counterRef}>1</div>}
+                {isMobile && <div className={`${classes.counter}`} ref={counterRef}>1</div>}
             </div>
             {isMobile ? <div className={classes.cardsWrapper}>
                 <Swiper
@@ -183,6 +184,7 @@ export function MainStoreSection({ data, header, flagSelector = '' }: MainStoreS
                     onSlideChangeTransitionEnd={(e) => handleCounter(e)}
                     centeredSlides={true}
                     slidesPerView={"auto"}
+                    lazy={true}
                     loop={true}
                     autoplay={{
                         delay: 5000 * Math.random() * 30,
