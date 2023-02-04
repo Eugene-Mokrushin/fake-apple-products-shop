@@ -51,6 +51,7 @@
             content: url(./imgs/tickUp.svg);
         }
     }
+
     .menuItemTitle[data-active="false"] {
         &::after {
             content: url(./imgs/tickDown.svg);
@@ -62,11 +63,11 @@
     position: absolute;
     z-index: 98;
     top: 100%;
-    min-width: 255px;
+    min-width: 110%;
     padding-bottom: 30px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    // gap: 10px;
     transition: height .5s;
     margin-top: -17px;
 
@@ -103,6 +104,12 @@
             cursor: pointer;
             font-weight: weight(medium);
             font-size: 15px;
+            transition: color .2s;
+
+            &:hover {
+                transition: color .2s;
+                color: $orangeColor;
+            }
         }
 
         .pickedModelName {
@@ -144,13 +151,26 @@
 
 .models[data-active="true"] {
     display: block;
+    // visibility: visible;
     height: fit-content;
-    max-height: 700px;
+    // max-height: 700px;
+    .model {
+        opacity: 1;
+        transition: opacity 12s;
+    }
+    transition: max-height .5s;
+    min-height: fit-content;
 }
 
 .models[data-active="false"] {
+    transition: max-height .5s;
+    .model {
+        opacity: 0;
+    }
     display: none;
+    overflow: hidden;
     height: 0px;
+    // visibility: hidden;
     max-height: 0px;
 }
 

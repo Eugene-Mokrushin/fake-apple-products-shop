@@ -44,6 +44,10 @@
         "test": 20,
         "ELINA": 99,
         "2023Elina" : 50
+    },
+    "desctopTitle": {
+        "en": "Cart",
+        "ru": "Корзина"
     }
 
 }

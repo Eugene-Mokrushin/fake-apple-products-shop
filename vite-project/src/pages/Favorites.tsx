@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react'
+import { MouseEvent, ReactNode, useEffect, useState } from 'react'
 import classes from '../../scss/Favorites.module.scss'
 import { useMobileAndLang } from '../context/IsMobileLangContext'
 import { useShoppingCart } from '../context/ShoppingCartContext'
@@ -12,18 +12,18 @@ import { Pagination } from "swiper";
 
 export function Favorites() {
     const navigate = useNavigate();
-    const routeChange = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
+    const routeChange = (e: MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
         if ((e.target as HTMLElement).classList.contains('favIco')) return
         let path = `/item?asin=${id}`;
         navigate(path);
     }
 
     const { favItems, addRemoveItemToFav } = useShoppingCart()
-    const { lang } = useMobileAndLang()
+    const { lang, isMobile } = useMobileAndLang()
     const [cards, setCards] = useState<ReactNode[]>([])
     const re_img = /_AC_S[A-Z]\d*_/g
 
-    function handleClickFav(e: React.MouseEvent<HTMLImageElement, MouseEvent>, id: string) {
+    function handleClickFav(e: MouseEvent, id: string) {
         addRemoveItemToFav(id);
         if (e.target && id) {
             (e.target as HTMLInputElement).src = (e.target as HTMLInputElement).src.split('/').pop() == "heart_filled.svg"
@@ -42,24 +42,13 @@ export function Favorites() {
         document.querySelector(`#${id}`)?.querySelector('.swiper-pagination')?.classList.add('visiblePaginator')
     }
 
-    function handleParallax(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        const width = e.currentTarget.getBoundingClientRect().width
-        const height = e.currentTarget.getBoundingClientRect().height
-        if ((e.target as Element).classList.contains('favIco')) e.currentTarget.classList.add('is-out')
-        if (!(e.target as Element).classList.contains('favIco')) e.currentTarget.classList.remove('is-out')
-        const perspective = '800px',
-            delta = 30,
-            midWidth = width / 2,
-            midHeight = height / 2;
-        const mouseCoord = {
-            x: e.nativeEvent.offsetX,
-            y: e.nativeEvent.offsetY
-        };
-        const cursCenterX = midWidth - mouseCoord.x,
-            cursCenterY = midHeight - mouseCoord.y;
-
-        e.currentTarget.style.transform = 'perspective(' + perspective + ') rotateX(' + (cursCenterY / delta) + 'deg) rotateY(' + -(cursCenterX / delta) + 'deg) translateY(0)';
-        (e.currentTarget.childNodes[1] as HTMLElement).style.transform = 'perspective(' + perspective + ') rotateX(' + -(cursCenterY / delta) + 'deg) rotateY(' + (cursCenterX / delta) + 'deg) translateZ(10px)';
+    function handleDemoHover(e: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) {
+        if (e.target) {
+            {/* 
+        // @ts-ignore */}
+            const swiper = e.target.parentNode.nextElementSibling?.swiper
+            swiper.slideTo(index, 1000)
+        }
     }
 
     useEffect(() => {
@@ -90,8 +79,8 @@ export function Favorites() {
                         </SwiperSlide>
                     )
                 })
-
                 return (
+                    /* @ts-ignore */
                     <div className={`${classes.card} card`} id={String(index + 1)} key={index} onClick={(e) => routeChange(e, id)}>
                         <img src={favItems.includes(id) ? './imgs/heart_filled.svg' : './imgs/heart.svg'}
                             alt='added to favorite'
@@ -100,6 +89,16 @@ export function Favorites() {
                             onClick={(e) => handleClickFav(e, id)}
                         />
                         <div className={classes.swiperWrapper} id={id}>
+                            {!isMobile && <div className={classes.hoverers}>
+                                {allImages.map((img, index) => <div
+                                    key={crypto.randomUUID()}
+                                    className={classes.slide}
+                                    style={{ width: 100 / allImages.length + "%", left: 100 / allImages.length * index + "%" }}
+                                    /* @ts-ignore */
+                                    onMouseOver={(e) => { handleDemoHover(e, index) }}
+                                >
+                                </div>)}
+                            </div>}
                             <Swiper onBeforeSlideChangeStart={() => { revealPaginator(id) }} pagination={true} modules={[Pagination]} spaceBetween={1} className={`${classes.allImagesWrapper} mySwiper`}>
                                 {allImages}
                             </Swiper>

@@ -26,7 +26,7 @@ type MainStoreSectionProps = {
     flagSelector?: string
 }
 
-export function MainStoreSection({ data, header, flagSelector='' }: MainStoreSectionProps) {
+export function MainStoreSection({ data, header, flagSelector = '' }: MainStoreSectionProps) {
     const navigate = useNavigate()
     const { lang, isMobile } = useMobileAndLang()
     const { favItems, addRemoveItemToFav } = useShoppingCart()
@@ -83,7 +83,7 @@ export function MainStoreSection({ data, header, flagSelector='' }: MainStoreSec
     const allCards = useMemo(() => {
         if (isMobile) return generateCardsMobile()
         else return generateCardsDescktop()
-    }, [lang, currencyMultiplier, isMobile])
+    }, [lang, currencyMultiplier, isMobile, header])
 
     useEffect(() => {
         if (!counterRef.current) return
@@ -123,7 +123,7 @@ export function MainStoreSection({ data, header, flagSelector='' }: MainStoreSec
             const price = lang === "en" ? realPrice : (+realPrice.split("$")[1] * currencyMultiplier).toFixed(2) + "₽"
             const favItems1 = favItems
             return (
-                <div className={`${classes.card} is-out card ${flagSelector !== '' ? 'pickableSection': ''}`} id={String(index + 1)} key={crypto.randomUUID()} onClick={(e) => handleOpenGood(e, item.asin)} onMouseMove={(e) => handleParallax(e)} onMouseLeave={(e) => { e.currentTarget.classList.add('is-out'); e.currentTarget.style.transform = ""; (e.currentTarget.childNodes[1] as HTMLElement).style.transform = '' }}>
+                <div className={`${classes.card} is-out card ${flagSelector !== '' ? 'pickableSection' : ''}`} id={String(index + 1)} key={crypto.randomUUID()} onClick={(e) => handleOpenGood(e, item.asin)} onMouseMove={(e) => handleParallax(e)} onMouseLeave={(e) => { e.currentTarget.classList.add('is-out'); e.currentTarget.style.transform = ""; (e.currentTarget.childNodes[1] as HTMLElement).style.transform = '' }}>
                     <div className={classes.coverHover}></div>
                     <img src={favItems1.includes(item.asin) ? './imgs/heart_filled.svg' : './imgs/heart.svg'}
                         alt='added to favorite'
@@ -141,8 +141,8 @@ export function MainStoreSection({ data, header, flagSelector='' }: MainStoreSec
             )
         }).filter(val => val !== undefined)
         setCardsState(generatedCards)
+    
     }
-
     function generateCardsMobile() {
         let generatedCards = data.map((item, index) => {
             const small_link_img = String(item.images_url[0]).replace(re_img, "_AC_SX300_")

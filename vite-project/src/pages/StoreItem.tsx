@@ -194,7 +194,7 @@ export function StoreItem() {
     }
 
     return (
-        <div className={classes.detailedGoodWrapper}>
+        <div className={isMobile ? classes.detailedGoodWrapper : classes.detailedGoodWrapperDesctop}>
             <div className={classes.addedToCart} ref={cartNotif}>{added_to_cart}</div>
             <div className={classes.title}>{product_cat}</div>
             <div className={classes.imagesAndTitleWrapper}>

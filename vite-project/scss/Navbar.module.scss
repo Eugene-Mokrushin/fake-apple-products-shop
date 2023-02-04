@@ -176,7 +176,6 @@
         font-weight: weight(bold);
         text-decoration: none;
         color: $almostBlack;
-        margin-left: 26px;
     }
 
     .logo {
@@ -220,13 +219,14 @@
         margin-right: 24px;
 
         .quantityInCart {
+            cursor: pointer;
             display: grid;
             align-content: center;
             justify-content: center;
             position: absolute;
             top: -3px;
             left: 60%;
-
+            user-select: none;
             background-color: $orangeColor;
             border-radius: 50%;
             height: 16px;
@@ -247,6 +247,7 @@
         justify-content: center;
 
         .numFav {
+            cursor: pointer;
             display: grid;
             align-content: center;
             justify-content: center;
@@ -255,7 +256,7 @@
             position: absolute;
             top: -7px;
             left: 55%;
-
+            user-select: none;
             background-color: $orangeColor;
             border-radius: 50%;
             height: 16px;

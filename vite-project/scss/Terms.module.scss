@@ -6,6 +6,13 @@
 
 ;
 
+.allTermsWrapperDesctop {
+    min-height: 0 !important;
+    .backToMain {
+        display: none !important;
+    }
+}
+
 .allTermsWrapper {
     font-family: 'Montserrat';
     padding: 16px 25px 20px 25px;
@@ -62,4 +69,5 @@
             transform: scale(0.95);
         }
     }
+
 }

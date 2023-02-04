@@ -104,7 +104,7 @@
         width: 90%;
         margin: 0 auto;
         margin-top: 20px;
-        
+
         .delivery {
             padding: 18px 30px 18px 30px;
             background: #FFFFFF;
@@ -239,6 +239,7 @@
                 color: $absBlack;
             }
         }
+
         .btn {
             display: grid;
             align-content: center;
@@ -254,6 +255,275 @@
             color: #FFFFFF;
             transition: transform .3s;
 
+            &:active {
+                transition: transform .3s;
+                transform: scale(0.95);
+            }
+        }
+    }
+
+}
+
+.cartWrapperDesctop {
+    font-family: 'Montserrat';
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+
+    .emptyCart {
+        min-height: calc(100vh - 63px - 160px);
+        width: 100%;
+        position: relative;
+        display: grid;
+        align-content: center;
+
+        .emptyCartTitleAndImg {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .titleCartEmpty {
+                margin-top: 20px;
+                text-align: center;
+                font-style: normal;
+                font-weight: weight(medium);
+                font-size: 20px;
+                line-height: 24px;
+            }
+
+            .subTitleCartEmpty {
+                margin-top: 10px;
+                text-align: center;
+                font-style: normal;
+                font-weight: weight(thin);
+                font-size: 15px;
+                line-height: 18px;
+                color: $greyColor;
+            }
+        }
+
+        .goToCatalog {
+            user-select: none;
+            display: grid;
+            align-content: center;
+            max-width: 540px;
+            width: 80%;
+            height: 65px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+            border-radius: 15px;
+            margin: 0 auto;
+            margin-top: 30px;
+            margin-bottom: 35px;
+            background-color: $almostBlack;
+
+            font-style: normal;
+            font-weight: weight(semi-bold);
+            font-size: 17px;
+            line-height: 21px;
+            text-align: center;
+            color: #FFFFFF;
+            text-decoration: none;
+            transition: transform .4s;
+
+            &:hover {
+                transition: transform .4s;
+                transform: scale(1.05);
+            }
+
+            &:active {
+                transition: transform .4s;
+                transform: scale(0.95);
+            }
+        }
+    }
+
+    .cartItems {
+        position: relative;
+    }
+
+    .desctopTitle {
+        font-style: normal;
+        font-weight: weight(semi-bold);
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .filledCart {
+        display: flex;
+
+        .goodsInCartInfo {
+            width: 60%;
+            min-width: 60%;
+            min-height: 0px;
+            max-height: 4000px;
+            transition: all 10000ms linear;
+        }
+    }
+
+    .deliveryWrapper {
+        margin-top: 20px;
+
+        .delivery {
+            margin-bottom: 20px;
+            padding: 18px 30px 18px 30px;
+            background: #FFFFFF;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+
+            .titleAndPrice {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .deliveryTitle {
+                    font-style: normal;
+                    font-weight: weight(semi-bold);
+                    font-size: 17px;
+                    line-height: 21px;
+                    color: $almostBlack;
+                }
+
+                .price {
+                    font-style: normal;
+                    font-weight: weight(semi-bold);
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: $blueishBlack;
+                }
+            }
+
+            .map {
+                margin-top: 20px;
+                max-height: 177px;
+                width: 100%;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+
+            .deliveryMethodsWrapper {
+                margin-top: 20px;
+
+                .methodThumb {
+                    max-height: 15px;
+                    min-width: 20px;
+                }
+
+                .selected {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+
+                    .nameOption {
+                        margin-left: 11px;
+                        font-style: normal;
+                        font-weight: weight(medium);
+                        font-size: 15px;
+                        line-height: 18px;
+                        color: $absBlack;
+                    }
+
+                    .tick {
+                        margin-left: auto;
+                    }
+
+                    .tickDown {
+                        transform: rotateZ(0deg);
+                        transition: .5s;
+                    }
+
+                    .tickUp {
+                        transition: .5s;
+                        transform: rotateZ(180deg);
+                        // transform: scale(-1);
+                    }
+                }
+
+                .otherOptions {
+                    margin-top: 10px;
+                    overflow: hidden;
+                    cursor: pointer;
+
+                    .option {
+                        display: flex;
+                        align-items: center;
+
+                        .nameOption {
+                            margin-left: 11px;
+                        }
+                    }
+                }
+
+                .otherOprionsOpened {
+                    max-height: 200px;
+                    transition: .4s;
+                }
+
+                .otherOprionsClosed {
+                    max-height: 0px;
+                    transition: .4s;
+                }
+
+            }
+        }
+    }
+
+    .goToPaymentWrapper {
+        max-width: 350px;
+        height: fit-content;
+        width: 350px;
+        margin-left: auto;
+        margin-top: 20px;
+
+        background: #FFFFFF;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 30px;
+
+        .titleAndPrice {
+            padding: 0 23px;
+            margin: 16px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .title {
+                font-style: normal;
+                font-weight: weight(semi-bold);
+                font-size: 15px;
+                line-height: 18px;
+                color: $absBlack;
+            }
+
+            .price {
+                font-style: normal;
+                font-weight: weight(semi-bold);
+                font-size: 18px;
+                line-height: 22px;
+                color: $absBlack;
+            }
+        }
+
+        .btn {
+            cursor: pointer;
+            user-select: none;
+            display: grid;
+            align-content: center;
+            justify-content: center;
+            height: 65px;
+            background: $almostBlack;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            font-style: normal;
+            font-weight: weight(semi-bold);
+            font-size: 17px;
+            line-height: 21px;
+            color: #FFFFFF;
+            transition: transform .3s;
+
+            &:hover {
+                transition: transform .3s;
+                transform: scale(1.05);
+            }
             &:active {
                 transition: transform .3s;
                 transform: scale(0.95);

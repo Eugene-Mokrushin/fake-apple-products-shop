@@ -16,7 +16,7 @@
     flex-direction: column;
     padding: 18px 25px 18px 30px;
     margin-top: 20px;
-    
+
 
     background: #FFFFFF;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
@@ -113,6 +113,138 @@
             text-align: right;
 
             color: $blueishBlack;
+        }
+    }
+}
+
+.wrapperDesctop {
+    .item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 18px 25px 18px 30px;
+        margin-top: 20px;
+        height: 220px;
+
+        background: #FFFFFF;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 30px;
+
+        transition: transform .4s;
+
+        .bin {
+            cursor: pointer;
+            user-select: none;
+            position: absolute;
+            right: 25px;
+            min-height: 25px;
+            margin-left: auto;
+            transition: transform .3s;
+            transform: scale(1);
+
+            &:hover {
+                transition: transform .3s;
+                transform: scale(1.2);
+            }
+            &:active {
+                transition: transform .4s;
+                transform: scale(0.9);
+            }
+        }
+
+        .imgAndTitlePrice {
+            display: flex;
+            height: 80%;
+            align-items: center;
+            cursor: pointer;
+
+
+            img {
+                aspect-ratio: 1/1;
+                object-fit: contain;
+                // max-height: 80px;
+                min-height: 100%;
+                min-width: 80px;
+                border-radius: 10px;
+            }
+
+            .titlePrice {
+                margin-left: 13px;
+
+                .titleItem {
+                    font-style: normal;
+                    width: 80%;
+                    font-weight: weight(medium);
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: $blueishBlack;
+                }
+
+                .priceItem {
+                    margin-top: 5px;
+                    font-style: normal;
+                    font-weight: weight(semi-bold);
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: #AAAAAA;
+                }
+            }
+        }
+
+        .quantInCartAndTotal {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-left: 30px;
+
+            .quant {
+                display: flex;
+                column-gap: 20px;
+                align-items: center;
+                color: #FFFFFF;
+
+                .quan {
+                    text-align: center;
+                    font-style: normal;
+                    font-weight: weight(semi-bold);
+                    font-size: 17px;
+                    line-height: 21px;
+                    max-width: 20px;
+                    min-width: 20px;
+                    color: $absBlack;
+                }
+
+                .decrease,
+                .increase {
+                    cursor: pointer;
+                    user-select: none;
+                    display: grid;
+                    align-content: center;
+                    justify-content: center;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background-color: $orangeLight;
+
+                    font-size: 30px;
+                    font-weight: weight(thin);
+                    transition: transform .4s;
+                    &:active {
+                        transition: transform .4s;
+                        transform: scale(1.1);
+                    }
+                }
+            }
+
+            .total {
+                font-style: normal;
+                font-weight: weight(semi-bold);
+                font-size: 15px;
+                line-height: 18px;
+                text-align: right;
+                color: $blueishBlack;
+            }
         }
     }
 }

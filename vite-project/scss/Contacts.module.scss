@@ -138,3 +138,127 @@
     }
 
 }
+
+.contactsWrapperDesctop {
+    font-family: 'Montserrat';
+    width: 90%;
+    margin: 0 auto;
+
+    .mapAndSocialsWrapper {
+        padding: 20px 100px 0 100px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .mapWrapper {
+        padding: 15px 15px 12px 15px;
+        background: white;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 30px;
+        margin-right: 60px;
+
+        .title {
+            font-weight: weight(semi-bold);
+            font-size: 17px;
+            color: $blueishBlack;
+        }
+
+        .map {
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .specificAddr {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+
+            .text {
+                cursor: pointer;
+                margin-left: 11px;
+
+                a {
+                    text-decoration: none;
+                }
+
+                .str {
+                    color: black;
+                    font-weight: weight(medium);
+                    font-style: normal;
+                    font-size: 15px;
+                    line-height: 18px;
+                }
+
+                .office {
+                    color: $greyColor;
+                    font-weight: weight(normal);
+                    font-style: normal;
+                    font-size: 13px;
+                    line-height: 16px;
+                }
+            }
+        }
+    }
+
+    .socialsWrapper {
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+
+
+        .social {
+            user-select: none;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1/1;
+            height: 97px;
+            background: white;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            transform: scale(1);
+            transition: transform .4s;
+
+            &:hover {
+                transform: scale(1.1);
+                transition: transform .4s;
+            }
+
+            svg {
+                max-height: 40px;
+            }
+
+            &:active {
+                transition: .4s;
+                transform: scale(0.95);
+            }
+        }
+    }
+
+    .phoneNum {
+        padding: 0 100px;
+        margin: 40px 0;
+        display: flex;
+        align-items: center;
+
+        .num {
+            margin-left: 30px;
+            font-style: normal;
+            font-weight: weight(semi-bold);
+            font-size: 25px;
+            line-height: 30px;
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+    }
+
+    .backToMain {
+        display: none;
+    }
+}

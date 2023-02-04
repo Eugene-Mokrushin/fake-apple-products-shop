@@ -19,6 +19,20 @@
         row-gap: 20px;
         column-gap: 20px;
 
+        .swiperWrapper {
+            position: relative;
+            .hoverers {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                .slide {
+                    z-index: 9;
+                    height: 100%;
+                    position: absolute;
+                }
+            }
+        }
+
         .card {
             cursor: pointer;
             user-select: none;
@@ -48,9 +62,6 @@
             }
 
             .allImagesWrapper {
-                // display: flex;
-                // overflow: hidden;
-                // overflow-x: auto;
                 padding-bottom: 20px;
                 border-top-left-radius: 25px;
 
