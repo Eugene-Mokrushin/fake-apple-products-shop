@@ -23,7 +23,7 @@ type GoodData = {
 }
 
 export function Checkout() {
-    const { lang } = useMobileAndLang()
+    const { lang, isMobile } = useMobileAndLang()
     const { deliveryMethod, cartItems, removeFromCart } = useShoppingCart()
 
     const total = checkout_data.total[lang as keyof typeof checkout_data.total]
@@ -180,12 +180,39 @@ export function Checkout() {
     }
 
     return (
-        <div className={classes.container}>
+        <div className={isMobile ? classes.container : classes.containerDesctop}>
             <div className={classes.checkoutWrapper}>
                 <div className={classes.blocks}>
-                    <CheckoutGoods lang={lang} cartItems={newCartItems} currencyMultiplier={currencyMultiplier} />
-                    <CheckoutDelivery lang={lang} deliveryMethod={deliveryMethod} currencyMultiplier={currencyMultiplier} handleDeliveryInfo={handleDeliveryInfo} />
-                    <CheckoutPayment lang={lang} handlePromo={handlePromo} methodSelected={methodSelected} handleChengePayment={handleChengePayment} />
+                    {isMobile ?
+                        <>
+                            <CheckoutGoods lang={lang} cartItems={newCartItems} currencyMultiplier={currencyMultiplier} />
+                            <CheckoutDelivery lang={lang} deliveryMethod={deliveryMethod} currencyMultiplier={currencyMultiplier} handleDeliveryInfo={handleDeliveryInfo} />
+                            <CheckoutPayment lang={lang} handlePromo={handlePromo} methodSelected={methodSelected} handleChengePayment={handleChengePayment} />
+                        </>
+                        :
+                        <div className={classes.sectionsDesctopWrapper}>
+                            <CheckoutDelivery lang={lang} deliveryMethod={deliveryMethod} currencyMultiplier={currencyMultiplier} handleDeliveryInfo={handleDeliveryInfo} />
+                            <div className={classes.goodsAndPayment}>
+                                <CheckoutGoods lang={lang} cartItems={newCartItems} currencyMultiplier={currencyMultiplier} />
+                                <CheckoutPayment lang={lang} handlePromo={handlePromo} methodSelected={methodSelected} handleChengePayment={handleChengePayment} />
+                                <div className={classes.total}>
+                                    <div className={classes.title}>{total.toUpperCase()}</div>
+                                    <div className={classes.priceAndDiscaout}>
+                                        <div className={`${classes.sum} ${discount !== 0 ? classes.oldPrice : ""}`}>{lang === "en" ? "$" + totalPrice : totalPrice + " ₽"}</div>
+                                        {discount !== 0 && totalPrice &&
+                                            <div className={classes.newPrice}>
+                                                {lang === "en" ? "$" + (totalPrice * (100 - discount) / 100).toFixed(2) : (totalPrice * (100 - discount) / 100).toFixed(2) + " ₽"}
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div className={classes.placeOrderWrapper} ref={totalRef}>
+                                    {ribbon}
+                                    <div className={classes.button} onClick={() => handleMakeOrder()}>{placeOrder}</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
             <div className={classes.totalWrapperPlaceOrder}>

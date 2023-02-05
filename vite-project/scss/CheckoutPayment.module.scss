@@ -115,3 +115,121 @@
         }
     }
 }
+
+.paymentWrapperDesctop {
+    margin-top: 16px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    padding: 25px 20px 20px 20px;
+
+
+    .mainTitle {
+        font-style: normal;
+        font-weight: weight(semi-bold);
+        font-size: 17px;
+        line-height: 21px;
+        color: $absBlack;
+    }
+
+    .methodsWrapper {
+        margin-top: 20px;
+        user-select: none;
+
+        .thumbImg {
+            max-height: 16px;
+            max-width: 22px;
+            min-width: 22px;
+        }
+
+        .selected {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            .methodSelcted {
+                margin-left: 10px;
+                font-style: normal;
+                font-weight: weight(semi-bold);
+                font-size: 15px;
+                line-height: 18px;
+
+                color: $absBlack;
+            }
+
+            .tick {
+                margin-left: auto;
+                transform: scale(0.6);
+            }
+
+            .tickDown {
+                transform: scale(0.6) rotateZ(0deg);
+                transition: .5s;
+            }
+
+            .tickUp {
+                transition: .5s;
+                transform: scale(0.6) rotateZ(180deg);
+            }
+        }
+
+        .otherOptions {
+            margin-top: 10px;
+            overflow: hidden;
+
+            .option {
+                cursor: pointer;
+                display: flex;
+
+                .methodSelcted {
+                    margin-left: 10px;
+                    font-style: normal;
+                    font-weight: weight(medium);
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: $absBlack;
+                }
+            }
+        }
+
+        .otherOptionsOpened {
+            max-height: 100px;
+            transition: .4s;
+        }
+
+        .otherOptionsClosed {
+            max-height: 0px;
+            margin-top: 0px;
+            transition: .4s;
+        }
+    }
+
+    .promoCode {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+
+        .promoInput {
+            margin-left: 14px;
+            outline: none;
+            border: none;
+
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 18px;
+            color: $absBlack;
+
+            &::placeholder {
+                color: $greyColor;
+
+            }
+        }
+
+        .tick {
+            margin-left: auto;
+            margin-right: 4px;
+        }
+    }
+}

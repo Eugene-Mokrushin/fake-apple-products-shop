@@ -1,6 +1,7 @@
 import checkout_data from '../data/Checkout.json';
 import goods_data from '../data/individual_good.json';
 import classes from '../../scss/CheckoutGood.module.scss'
+import { useMobileAndLang } from '../context/IsMobileLangContext';
 
 type CartItemProps = {
     id: string,
@@ -26,7 +27,7 @@ type GoodData = {
 export function CheckoutGoods({ lang, cartItems, currencyMultiplier }: CheckoutGoodsProps) {
     const mainTitle = checkout_data.goodsTotal[lang as keyof typeof checkout_data.goodsTotal]
     const re_img = /_AC_S[A-Z]\d*_/g
-
+    const { isMobile } = useMobileAndLang()
     const allItems = cartItems.map(item => {
         const product_data: GoodData = goods_data[item.id as keyof typeof goods_data]
         const existingPrice = product_data.price === "" ? 10 : +product_data.price.split('$')[1]
@@ -44,7 +45,7 @@ export function CheckoutGoods({ lang, cartItems, currencyMultiplier }: CheckoutG
     })
 
     return (
-        <div className={classes.goodsTotalWrapper}>
+        <div className={isMobile ? classes.goodsTotalWrapper : classes.goodsTotalWrapperDesctop}>
             <div className={classes.minTitle}>{mainTitle}</div>
             <div className={classes.allItemsWrapper}>
                 {allItems}

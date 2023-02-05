@@ -1,5 +1,5 @@
 import { useMobileAndLang } from './context/IsMobileLangContext';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Navbar } from './components/Navbar';
 import { Contacts } from './pages/Contacts';
@@ -28,6 +28,11 @@ function App() {
             })
         }
     }, [])
+    const location = useLocation();
+
+    useEffect(() => {
+        document.documentElement.scrollTo(0, 0)
+    }, [location]);
 
     return (
         <>
@@ -44,6 +49,7 @@ function App() {
                     <Route path='/cart' element={<Cart />} />
                     <Route path='/checkout' element={<Checkout />} />
                     <Route path='/order' element={<OrderCreated />} />
+                    <Route path="*" element={<Home />} />
                 </Routes>
                 {!isMobile && <div className={"scrollUp"} ref={scrollUpRef} onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}>
                     <img src="./imgs/upScroll.svg" alt="scrollUp" /> </div>}

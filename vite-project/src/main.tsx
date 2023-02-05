@@ -19,4 +19,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       </IsSectionSelectedProvider>
     </ShoppingCartProvider>
   </React.StrictMode>
+  
 )

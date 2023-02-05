@@ -12,6 +12,7 @@ export function MenuDesctop() {
     const [isModelsActive, setIsModelsActive] = useState<boolean>(false)
     const navigate = useNavigate();
     const { search } = useLocation();
+    const location = useLocation();
     const parameters = new URLSearchParams(search);
     const chosenModel = parameters.get('model')
     const chosenBrand = parameters.get('brand')
@@ -30,6 +31,11 @@ export function MenuDesctop() {
         })
 
     }, [])
+
+    useEffect(() => {
+        setIsModelsActive(false)
+    }, [location]);
+
 
     let phoneBrandAndModels: Array<ReactNode> = [];
     for (const [key, value] of Object.entries(allPhone)) {

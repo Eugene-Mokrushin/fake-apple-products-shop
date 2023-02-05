@@ -2,6 +2,7 @@ import classes from '../../scss/CheckoutDelivery.module.scss';
 import checkout_data from '../data/Checkout.json';
 import cart_data from '../data/Cart.json'
 import { useState } from 'react';
+import { useMobileAndLang } from '../context/IsMobileLangContext';
 
 type CheckoutDeliveryProps = {
     lang: string,
@@ -13,7 +14,7 @@ type CheckoutDeliveryProps = {
 export function CheckoutDelivery({ lang, deliveryMethod, currencyMultiplier, handleDeliveryInfo }: CheckoutDeliveryProps) {
     const deliveryOptionCourierChecker = cart_data.delivery.delivery_uptions.courier.en
     const deliveryOptionPickupChecker = cart_data.delivery.delivery_uptions.selfPickUp.en
-
+    const { isMobile } = useMobileAndLang()
     const mainTitle = deliveryMethod === deliveryOptionCourierChecker ? checkout_data.delivery.courier[lang as keyof typeof checkout_data.delivery.courier] : checkout_data.delivery.selfPickUp[lang as keyof typeof checkout_data.delivery.selfPickUp]
     const addresTitle = checkout_data.addresTitle[lang as keyof typeof checkout_data.addresTitle]
     const street = checkout_data.addresSubTitle.street[lang as keyof typeof checkout_data.addresSubTitle.street]
@@ -40,7 +41,7 @@ export function CheckoutDelivery({ lang, deliveryMethod, currencyMultiplier, han
     })
 
     return (
-        <div className={classes.deliveryWrapper}>
+        <div className={isMobile ? classes.deliveryWrapper : classes.deliveryWrapperDesctop}>
             <div className={classes.titleAndPrice}>
                 <div className={classes.mainTitle}>{mainTitle}</div>
                 <div className={classes.price}>{deliveryMethod === deliveryOptionPickupChecker ? lang === "en" ? "$0.00" : "0 ₽" : lang === "en" ? "$10.99" : `${(10.99 * currencyMultiplier).toFixed(2)} ₽`}</div>

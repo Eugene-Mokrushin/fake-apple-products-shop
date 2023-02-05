@@ -17,11 +17,12 @@ export function Favorites() {
         let path = `/item?asin=${id}`;
         navigate(path);
     }
-
+    
     const { favItems, addRemoveItemToFav } = useShoppingCart()
     const { lang, isMobile } = useMobileAndLang()
     const [cards, setCards] = useState<ReactNode[]>([])
     const re_img = /_AC_S[A-Z]\d*_/g
+    const nothing = lang === "en" ? "There are no favorite items :(" : "Нету избранных товаров :("
 
     function handleClickFav(e: MouseEvent, id: string) {
         addRemoveItemToFav(id);
@@ -118,6 +119,11 @@ export function Favorites() {
 
     return (
         <div className={classes.favWrapper}>
+            {favItems.length === 0 &&
+                <div className={classes.nothing}>
+                    {nothing}
+                </div>
+            }
             <div className={classes.cardsWrapper}>
                 {cards}
             </div>
