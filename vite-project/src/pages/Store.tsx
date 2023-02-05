@@ -1,13 +1,11 @@
-import { ReactElement, ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 import classes from '../../scss/Store.module.scss'
 import store_data from '../data/Store.json'
 import products_data from '../data/cases_data.json'
 
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useMobileAndLang } from '../context/IsMobileLangContext'
-import { useCardsScroll } from "../hooks/useCardsScroll";
-import { useShoppingCart } from '../context/ShoppingCartContext'
 import { MainStoreSection } from '../components/MainStoreSection'
 import { StoreSwiper } from '../components/StoreSwiper'
 
@@ -89,8 +87,12 @@ export function Store() {
                 </div>
             </div>
             <div className={classes.subrubricChosen}>
+                {/* 
+        // @ts-ignore */}
                 {isMobile ? <StoreSwiper data={products_data[brand as keyof typeof products_data][model][chosenRubric[2]]} header={chosenRubric[0] + ' > ' + chosenRubric[1]} />
-                    : <MainStoreSection data={products_data[brand as keyof typeof products_data][model][chosenRubric[2]]} header={chosenRubric[0] + ' > ' + chosenRubric[1]} flagStore={flag}/>
+                    /* 
+        // @ts-ignore */
+                : <MainStoreSection data={products_data[brand as keyof typeof products_data][model][chosenRubric[2]]} header={chosenRubric[0] + ' > ' + chosenRubric[1]} flagStore={flag} />
                 }
             </div>
         </div>

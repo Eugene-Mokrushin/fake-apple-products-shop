@@ -15,9 +15,9 @@ type GoodData = {
     "title": string,
     "price": string,
     "rating": string,
-    "feature": string[],
-    "specific_name": string[],
-    "specific_value": string[],
+    "feature"?: string[] | string,
+    "specific_name": string[] | string,
+    "specific_value": string[] | string,
     "description": string,
     "images_url": string[]
 }

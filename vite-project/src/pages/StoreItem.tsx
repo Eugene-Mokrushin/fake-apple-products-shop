@@ -18,9 +18,9 @@ type GoodData = {
     "title": string,
     "price": string,
     "rating": string,
-    "feature": string[],
-    "specific_name": string[],
-    "specific_value": string[],
+    "feature"?: string[] | string,
+    "specific_name": string[] | string,
+    "specific_value": string[] | string,
     "description": string,
     "images_url": string[]
 }
@@ -135,21 +135,21 @@ export function StoreItem() {
             />
         )
     })
-    const featuresTable = product_data.specific_name.map((feature: string, index: number) => {
+    const featuresTable =  typeof product_data.specific_name === "object" ? product_data.specific_name.map((feature: string, index: number) => {
         return (
             <div className={classes.feature} key={crypto.randomUUID()}>
                 <div className={classes.name}>{feature.split(' ').splice(0, 2).join(' ')}:</div>
                 <div className={classes.value}>{product_data.specific_value[index]}</div>
             </div>
         )
-    })
-    const additionalFeatures = product_data.feature.map((feature: string) => {
+    }) : ''
+    const additionalFeatures = typeof product_data.feature === "object" ? product_data.feature.map((feature: string) => {
         return (
             <div className={classes.addFeature} key={crypto.randomUUID()}>
                 {feature}
             </div>
         )
-    })
+    }) : ''
 
     function highlightDemoImg(): void {
         const selectedId = document.querySelector('.swiper-slide-active')?.children[0].id || -1
